@@ -98,11 +98,11 @@ export function ExistenceBingoList() {
     { subject: "Your sibling", verb: "suddenly loses their job", probability: 50 }, // 50%
     
     // Crime/safety-related
-    { subject: "You", verb: "are sexually assaulted", probability: 20 }, // 20% - lifetime risk varies significantly by gender
-    { subject: "Your spouse", verb: "is sexually assaulted", probability: 20 }, // 20%
-    { subject: "Your child", verb: "is sexually assaulted", probability: 15 }, // 15% - tragically common
-    { subject: "Your parent", verb: "is sexually assaulted", probability: 12 }, // 12% 
-    { subject: "Your sibling", verb: "is sexually assaulted", probability: 18 }, // 18%
+    { subject: "You", verb: "become sexually assaulted", probability: 20 }, // 20% - lifetime risk varies significantly by gender
+    { subject: "Your spouse", verb: "becomes sexually assaulted", probability: 20 }, // 20%
+    { subject: "Your child", verb: "becomes sexually assaulted", probability: 15 }, // 15% - tragically common
+    { subject: "Your parent", verb: "becomes sexually assaulted", probability: 12 }, // 12% 
+    { subject: "Your sibling", verb: "becomes sexually assaulted", probability: 18 }, // 18%
     
     { subject: "You", verb: "become a victim of identity theft", probability: 20 }, // 20% - increasingly common
     { subject: "Your spouse", verb: "becomes a victim of identity theft", probability: 20 }, // 20%
@@ -116,11 +116,11 @@ export function ExistenceBingoList() {
     { subject: "Your parent", verb: "becomes a victim of major fraud", probability: 25 }, // 25% - elderly are primary targets
     { subject: "Your sibling", verb: "becomes a victim of major fraud", probability: 15 }, // 15%
     
-    { subject: "You", verb: "are a victim of violent crime", probability: 15 }, // 15%
-    { subject: "Your spouse", verb: "is a victim of violent crime", probability: 15 }, // 15%
-    { subject: "Your child", verb: "is a victim of violent crime", probability: 12 }, // 12%
-    { subject: "Your parent", verb: "is a victim of violent crime", probability: 12 }, // 12%
-    { subject: "Your sibling", verb: "is a victim of violent crime", probability: 15 }, // 15%
+    { subject: "You", verb: "become a victim of violent crime", probability: 15 }, // 15%
+    { subject: "Your spouse", verb: "becomes a victim of violent crime", probability: 15 }, // 15%
+    { subject: "Your child", verb: "becomes a victim of violent crime", probability: 12 }, // 12%
+    { subject: "Your parent", verb: "becomes a victim of violent crime", probability: 12 }, // 12%
+    { subject: "Your sibling", verb: "becomes a victim of violent crime", probability: 15 }, // 15%
     
     { subject: "You", verb: "go to jail/prison", probability: 3 }, // 3%
     { subject: "Your spouse", verb: "goes to jail/prison", probability: 3 }, // 3%
