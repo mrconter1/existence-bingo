@@ -2,7 +2,7 @@
 
 A darkly humorous interactive bingo game that generates personalized boards based on life's misfortunes.
 
-![Existence Bingo Screenshot](https://github.com/username/existence-bingo/raw/main/public/screenshot.png)
+<img src="https://github.com/user-attachments/assets/c934b181-f9dd-48ed-9e94-bae75e02b1c5" alt="Alt Text" width="300">
 
 ## About
 
@@ -55,4 +55,4 @@ MIT
 
 ---
 
-*Note: This project is meant as dark humor and is not intended to make light of serious life challenges. It's a reflection on the shared human experience of facing difficulties throughout life.*
+*Note: This project is meant as dark humor and is not intended to make light of serious life challenges. It's a reflection on the shared human experience of facing difficulties throughout life. And also as a slight critique to pro-natalism.*
