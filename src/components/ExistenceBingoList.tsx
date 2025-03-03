@@ -34,10 +34,10 @@ export function ExistenceBingoList() {
     [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['a natural disaster', 'a serious accident']],
     [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences war']],
     [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['face serious legal troubles']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['are forced to leave your home']],
+    [['You', 'Your child', 'Your parent', 'Your sibling'], ['are forced to leave your home']],
     
     // Other specific cases
-    [['Your child', 'Your spouse'], ['experience miscarriage']],
+    [['You', 'Your child'], ['experience miscarriage']],
     [['Your pet'], ['dies']],
   ];
 
