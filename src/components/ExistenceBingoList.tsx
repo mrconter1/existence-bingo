@@ -17,7 +17,7 @@ export function ExistenceBingoList() {
   const [hasSpouse, setHasSpouse] = useState(true);
   const [childCount, setChildCount] = useState(1);
   const [siblingCount, setSiblingCount] = useState(1);
-  const [hasParents, setHasParents] = useState(true);
+  const [parentCount, setParentCount] = useState(2);
   const [hasPet, setHasPet] = useState(true);
   
   // Base misfortunes with probabilities for a single family member
@@ -196,7 +196,7 @@ export function ExistenceBingoList() {
       if (!hasSpouse && misfortune.subject === "Your spouse") return;
       if (childCount === 0 && misfortune.subject === "Your child") return;
       if (siblingCount === 0 && misfortune.subject === "Your sibling") return;
-      if (!hasParents && (misfortune.subject === "Your parent" || misfortune.subject === "Your parents")) return;
+      if (parentCount === 0 && (misfortune.subject === "Your parent" || misfortune.subject === "Your parents")) return;
       if (!hasPet && misfortune.subject === "Your pet") return;
       
       // Calculate adjusted probability for multiple family members
@@ -206,9 +206,9 @@ export function ExistenceBingoList() {
         adjustedProbability = calculateAdjustedProbability(misfortune.probability, childCount);
       } else if (misfortune.subject === "Your sibling" && siblingCount > 1) {
         adjustedProbability = calculateAdjustedProbability(misfortune.probability, siblingCount);
-      } else if (misfortune.subject === "Your parent" && hasParents) {
-        // Assuming 2 parents if hasParents is true
-        adjustedProbability = calculateAdjustedProbability(misfortune.probability, 2);
+      } else if (misfortune.subject === "Your parent" && parentCount > 0) {
+        // Use the actual parent count for calculation
+        adjustedProbability = calculateAdjustedProbability(misfortune.probability, parentCount);
       }
       
       // Format text
@@ -275,12 +275,18 @@ export function ExistenceBingoList() {
             />
           </div>
           
-          <div className="flex items-center justify-between">
-            <Label htmlFor="parents-toggle" className="cursor-pointer">Do you have living parents?</Label>
-            <Switch 
-              id="parents-toggle" 
-              checked={hasParents} 
-              onCheckedChange={setHasParents} 
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label htmlFor="parent-slider">Number of living parents: {parentCount}</Label>
+            </div>
+            <Slider 
+              id="parent-slider"
+              min={0} 
+              max={2} 
+              step={1} 
+              value={[parentCount]} 
+              onValueChange={(value: number[]) => setParentCount(value[0])} 
+              className="py-4"
             />
           </div>
           
