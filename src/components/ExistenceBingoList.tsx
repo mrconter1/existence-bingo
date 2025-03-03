@@ -19,7 +19,6 @@ export function ExistenceBingoList() {
   const [hasSpouse, setHasSpouse] = useState(true);
   const [childCount, setChildCount] = useState(1);
   const [siblingCount, setSiblingCount] = useState(1);
-  const [parentCount, setParentCount] = useState(2);
   const [hasPet, setHasPet] = useState(true);
   
   // State for the bingo card view
@@ -156,7 +155,6 @@ export function ExistenceBingoList() {
       if (!hasSpouse && text.includes("spouse")) return;
       if (childCount === 0 && text.includes("child")) return;
       if (siblingCount === 0 && text.includes("sibling")) return;
-      if (parentCount === 0 && text.includes("parent")) return;
       if (!hasPet && text.includes("pet")) return;
       
       // Calculate adjusted probability for multiple family members
@@ -166,9 +164,6 @@ export function ExistenceBingoList() {
         adjustedProbability = calculateAdjustedProbability(misfortune.probability, childCount);
       } else if (text.includes("sibling") && siblingCount > 1) {
         adjustedProbability = calculateAdjustedProbability(misfortune.probability, siblingCount);
-      } else if (text.includes("parent") && parentCount > 0) {
-        // Use the actual parent count for calculation
-        adjustedProbability = calculateAdjustedProbability(misfortune.probability, parentCount);
       }
       
       result.push({
@@ -304,7 +299,7 @@ export function ExistenceBingoList() {
     if (showBingoCard) {
       generateBingoCard();
     }
-  }, [hasSpouse, childCount, siblingCount, parentCount, hasPet, showBingoCard]);
+  }, [hasSpouse, childCount, siblingCount, hasPet, showBingoCard]);
   
   const formattedMisfortunes = getAdjustedMisfortunes();
   
@@ -314,10 +309,11 @@ export function ExistenceBingoList() {
       
       <div className="mb-8 p-4 border rounded-lg">
         <h3 className="text-lg font-semibold mb-4">Customize Your Family</h3>
+        <p className="text-sm text-muted-foreground mb-4">Include both current and planned family members in your life.</p>
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <Label htmlFor="spouse-toggle" className="cursor-pointer">Do you have a spouse/partner?</Label>
+            <Label htmlFor="spouse-toggle" className="cursor-pointer">You have or plan to have a spouse/partner</Label>
             <Switch 
               id="spouse-toggle" 
               checked={hasSpouse} 
@@ -327,7 +323,7 @@ export function ExistenceBingoList() {
           
           <div className="space-y-2">
             <div className="flex justify-between">
-              <Label htmlFor="child-slider">Number of children: {childCount}</Label>
+              <Label htmlFor="child-slider">Number of children (current or planned): {childCount}</Label>
             </div>
             <Slider 
               id="child-slider"
@@ -342,7 +338,7 @@ export function ExistenceBingoList() {
           
           <div className="space-y-2">
             <div className="flex justify-between">
-              <Label htmlFor="sibling-slider">Number of siblings: {siblingCount}</Label>
+              <Label htmlFor="sibling-slider">Number of siblings (including step-siblings): {siblingCount}</Label>
             </div>
             <Slider 
               id="sibling-slider"
@@ -355,23 +351,8 @@ export function ExistenceBingoList() {
             />
           </div>
           
-          <div className="space-y-2">
-            <div className="flex justify-between">
-              <Label htmlFor="parent-slider">Number of living parents: {parentCount}</Label>
-            </div>
-            <Slider 
-              id="parent-slider"
-              min={0} 
-              max={2} 
-              step={1} 
-              value={[parentCount]} 
-              onValueChange={(value: number[]) => setParentCount(value[0])} 
-              className="py-4"
-            />
-          </div>
-          
           <div className="flex items-center justify-between">
-            <Label htmlFor="pet-toggle" className="cursor-pointer">Do you have pets?</Label>
+            <Label htmlFor="pet-toggle" className="cursor-pointer">You have or plan to have pets</Label>
             <Switch 
               id="pet-toggle" 
               checked={hasPet} 
