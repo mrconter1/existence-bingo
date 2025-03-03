@@ -34,75 +34,75 @@ export function ExistenceBingoList() {
     { subject: "You", verb: "have had a sibling die unexpectedly", probability: 4 }, // 4%
     
     { subject: "You", verb: "have received a terminal diagnosis", probability: 20 }, // 20% - serious illness in lifetime
-    { subject: "Your spouse", verb: "has received a terminal diagnosis", probability: 22 }, // 22%
-    { subject: "Your child", verb: "has received a terminal diagnosis", probability: 5 }, // 5% - less common in children
-    { subject: "Your parent", verb: "has received a terminal diagnosis", probability: 40 }, // 40% - higher for aging parents
-    { subject: "Your sibling", verb: "has received a terminal diagnosis", probability: 20 }, // 20%
+    { subject: "You", verb: "have had a spouse receive a terminal diagnosis", probability: 22 }, // 22%
+    { subject: "You", verb: "have had a child receive a terminal diagnosis", probability: 5 }, // 5% - less common in children
+    { subject: "You", verb: "have had a parent receive a terminal diagnosis", probability: 40 }, // 40% - higher for aging parents
+    { subject: "You", verb: "have had a sibling receive a terminal diagnosis", probability: 20 }, // 20%
     
     { subject: "You", verb: "have become severely disabled", probability: 10 }, // 10%
-    { subject: "Your spouse", verb: "has become severely disabled", probability: 10 }, // 10%
-    { subject: "Your child", verb: "has become severely disabled", probability: 7 }, // 7%
-    { subject: "Your parent", verb: "has become severely disabled", probability: 20 }, // 20% - increases with age
-    { subject: "Your sibling", verb: "has become severely disabled", probability: 9 }, // 9%
+    { subject: "You", verb: "have had a spouse become severely disabled", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a child become severely disabled", probability: 7 }, // 7%
+    { subject: "You", verb: "have had a parent become severely disabled", probability: 20 }, // 20% - increases with age
+    { subject: "You", verb: "have had a sibling become severely disabled", probability: 9 }, // 9%
     
     // Addiction-related
     { subject: "You", verb: "have developed a gambling addiction", probability: 2 }, // 2%
     { subject: "You", verb: "have developed an alcohol addiction", probability: 5 }, // 5%
     { subject: "You", verb: "have developed a drug addiction", probability: 3 }, // 3%
     
-    { subject: "Your spouse", verb: "has developed a gambling addiction", probability: 2 }, // 2%
-    { subject: "Your spouse", verb: "has developed an alcohol addiction", probability: 5 }, // 5%
-    { subject: "Your spouse", verb: "has developed a drug addiction", probability: 3 }, // 3%
+    { subject: "You", verb: "have had a spouse develop a gambling addiction", probability: 2 }, // 2%
+    { subject: "You", verb: "have had a spouse develop an alcohol addiction", probability: 5 }, // 5%
+    { subject: "You", verb: "have had a spouse develop a drug addiction", probability: 3 }, // 3%
     
-    { subject: "Your child", verb: "has developed a gambling addiction", probability: 1 }, // 1%
-    { subject: "Your child", verb: "has developed an alcohol addiction", probability: 4 }, // 4%
-    { subject: "Your child", verb: "has developed a drug addiction", probability: 6 }, // 6% - more common in youth
+    { subject: "You", verb: "have had a child develop a gambling addiction", probability: 1 }, // 1%
+    { subject: "You", verb: "have had a child develop an alcohol addiction", probability: 4 }, // 4%
+    { subject: "You", verb: "have had a child develop a drug addiction", probability: 6 }, // 6% - more common in youth
     
-    { subject: "Your parent", verb: "has developed a gambling addiction", probability: 2 }, // 2%
-    { subject: "Your parent", verb: "has developed an alcohol addiction", probability: 7 }, // 7%
-    { subject: "Your parent", verb: "has developed a drug addiction", probability: 2 }, // 2%
+    { subject: "You", verb: "have had a parent develop a gambling addiction", probability: 2 }, // 2%
+    { subject: "You", verb: "have had a parent develop an alcohol addiction", probability: 7 }, // 7%
+    { subject: "You", verb: "have had a parent develop a drug addiction", probability: 2 }, // 2%
     
-    { subject: "Your sibling", verb: "has developed a gambling addiction", probability: 2 }, // 2%
-    { subject: "Your sibling", verb: "has developed an alcohol addiction", probability: 5 }, // 5%
-    { subject: "Your sibling", verb: "has developed a drug addiction", probability: 5 }, // 5%
+    { subject: "You", verb: "have had a sibling develop a gambling addiction", probability: 2 }, // 2%
+    { subject: "You", verb: "have had a sibling develop an alcohol addiction", probability: 5 }, // 5%
+    { subject: "You", verb: "have had a sibling develop a drug addiction", probability: 5 }, // 5%
     
     // Mental health-related
     { subject: "You", verb: "have struggled with severe depression", probability: 10 }, // 10%
-    { subject: "Your spouse", verb: "has struggled with severe depression", probability: 10 }, // 10%
-    { subject: "Your child", verb: "has struggled with severe depression", probability: 8 }, // 8%
-    { subject: "Your parent", verb: "has struggled with severe depression", probability: 8 }, // 8%
-    { subject: "Your sibling", verb: "has struggled with severe depression", probability: 9 }, // 9%
+    { subject: "You", verb: "have had a spouse that has struggled with severe depression", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a child that has struggled with severe depression", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a parent that has struggled with severe depression", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a sibling that has struggled with severe depression", probability: 9 }, // 9%
     
     // Relationship-related
-    { subject: "You", verb: "have gone through a divorce", probability: 40 }, // 40%
-    { subject: "Your child", verb: "has gone through a divorce", probability: 35 }, // 35%
-    { subject: "Your sibling", verb: "has gone through a divorce", probability: 35 }, // 35%
+    { subject: "You", verb: "have gone through a divorce or relationship breakdown", probability: 40 }, // 40%
+    { subject: "You", verb: "have had a child go through a divorce", probability: 35 }, // 35%
+    { subject: "You", verb: "have had a sibling go through a divorce", probability: 35 }, // 35%
     
     // Financial/work-related
     { subject: "You", verb: "have experienced financial ruin", probability: 15 }, // 15%
-    { subject: "Your spouse", verb: "has experienced financial ruin", probability: 15 }, // 15%
-    { subject: "Your child", verb: "has experienced financial ruin", probability: 10 }, // 10%
-    { subject: "Your parent", verb: "has experienced financial ruin", probability: 10 }, // 10%
-    { subject: "Your sibling", verb: "has experienced financial ruin", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a spouse experience financial ruin", probability: 15 }, // 15%
+    { subject: "You", verb: "have had a child experience financial ruin", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a parent experience financial ruin", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a sibling experience financial ruin", probability: 10 }, // 10%
     
     { subject: "You", verb: "have lost your job unexpectedly", probability: 30 }, // 30%
-    { subject: "Your spouse", verb: "has lost their job unexpectedly", probability: 30 }, // 30%
-    { subject: "Your child", verb: "has lost their job unexpectedly", probability: 25 }, // 25%
-    { subject: "Your parent", verb: "has lost their job unexpectedly", probability: 20 }, // 20%
-    { subject: "Your sibling", verb: "has lost their job unexpectedly", probability: 25 }, // 25%
+    { subject: "You", verb: "have had a spouse lose their job unexpectedly", probability: 30 }, // 30%
+    { subject: "You", verb: "have had a child that lost their job unexpectedly", probability: 25 }, // 25%
+    { subject: "You", verb: "have had a parent lose their job unexpectedly", probability: 20 }, // 20%
+    { subject: "You", verb: "have had a sibling lose their job unexpectedly", probability: 25 }, // 25%
     
     // Crime/safety-related
     { subject: "You", verb: "have been the victim of a serious crime", probability: 20 }, // 20%
-    { subject: "Your spouse", verb: "has been the victim of a serious crime", probability: 20 }, // 20%
-    { subject: "Your child", verb: "has been the victim of a serious crime", probability: 15 }, // 15%
-    { subject: "Your parent", verb: "has been the victim of a serious crime", probability: 15 }, // 15%
-    { subject: "Your sibling", verb: "has been the victim of a serious crime", probability: 18 }, // 18%
+    { subject: "You", verb: "have had a spouse be the victim of a serious crime", probability: 20 }, // 20%
+    { subject: "You", verb: "have had a child be the victim of a serious crime", probability: 15 }, // 15%
+    { subject: "You", verb: "have had a parent be the victim of a serious crime", probability: 15 }, // 15%
+    { subject: "You", verb: "have had a sibling be the victim of a serious crime", probability: 18 }, // 18%
     
     { subject: "You", verb: "have been the victim of sexual assault", probability: 10 }, // 10%
-    { subject: "Your spouse", verb: "has been the victim of sexual assault", probability: 10 }, // 10%
-    { subject: "Your child", verb: "has been the victim of sexual assault", probability: 8 }, // 8%
-    { subject: "Your parent", verb: "has been the victim of sexual assault", probability: 8 }, // 8%
-    { subject: "Your sibling", verb: "has been the victim of sexual assault", probability: 9 }, // 9%
+    { subject: "You", verb: "have had a spouse be the victim of sexual assault", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a child be the victim of sexual assault", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a parent be the victim of sexual assault", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a sibling be the victim of sexual assault", probability: 9 }, // 9%
     
     { subject: "You", verb: "have had a spouse go missing", probability: 0.5 }, // 0.5%
     { subject: "You", verb: "have had a child go missing", probability: 0.8 }, // 0.8%
@@ -110,28 +110,28 @@ export function ExistenceBingoList() {
     { subject: "You", verb: "have had a sibling go missing", probability: 0.5 }, // 0.5%
     
     { subject: "You", verb: "have experienced stalking or harassment", probability: 8 }, // 8%
-    { subject: "Your spouse", verb: "has experienced stalking or harassment", probability: 8 }, // 8%
-    { subject: "Your child", verb: "has experienced stalking or harassment", probability: 6 }, // 6%
-    { subject: "Your parent", verb: "has experienced stalking or harassment", probability: 4 }, // 4%
-    { subject: "Your sibling", verb: "has experienced stalking or harassment", probability: 6 }, // 6%
+    { subject: "You", verb: "have had a spouse who experienced stalking or harassment", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a child who experienced stalking or harassment", probability: 6 }, // 6%
+    { subject: "You", verb: "have had a parent who experienced stalking or harassment", probability: 4 }, // 4%
+    { subject: "You", verb: "have had a sibling who experienced stalking or harassment", probability: 6 }, // 6%
     
     { subject: "You", verb: "have been the victim of identity theft", probability: 10 }, // 10%
-    { subject: "Your spouse", verb: "has been the victim of identity theft", probability: 10 }, // 10%
-    { subject: "Your child", verb: "has been the victim of identity theft", probability: 8 }, // 8%
-    { subject: "Your parent", verb: "has been the victim of identity theft", probability: 12 }, // 12%
-    { subject: "Your sibling", verb: "has been the victim of identity theft", probability: 9 }, // 9%
+    { subject: "You", verb: "have had a spouse be the victim of identity theft", probability: 10 }, // 10%
+    { subject: "You", verb: "have had a child be the victim of identity theft", probability: 8 }, // 8%
+    { subject: "You", verb: "have had a parent be the victim of identity theft", probability: 12 }, // 12%
+    { subject: "You", verb: "have had a sibling be the victim of identity theft", probability: 9 }, // 9%
     
     // Disaster-related
-    { subject: "You", verb: "have lost your home to a natural disaster", probability: 3 }, // 3%
-    { subject: "Your spouse", verb: "has lost their home to a natural disaster", probability: 3 }, // 3%
-    { subject: "Your child", verb: "has lost their home to a natural disaster", probability: 3 }, // 3%
-    { subject: "Your parent", verb: "has lost their home to a natural disaster", probability: 3 }, // 3%
-    { subject: "Your sibling", verb: "has lost their home to a natural disaster", probability: 3 }, // 3%
+    { subject: "You", verb: "have had your home severely affected by a natural disaster", probability: 3 }, // 3%
+    { subject: "You", verb: "have had a spouse's home severely affected by a natural disaster", probability: 3 }, // 3%
+    { subject: "You", verb: "have had a child's home severely affected by a natural disaster", probability: 3 }, // 3%
+    { subject: "You", verb: "have had a parent's home severely affected by a natural disaster", probability: 3 }, // 3%
+    { subject: "You", verb: "have had a sibling's home severely affected by a natural disaster", probability: 3 }, // 3%
     
     // Specific cases
-    { subject: "Your spouse", verb: "has been unfaithful", probability: 15 }, // 15%
+    { subject: "You", verb: "have had a spouse cheat on you", probability: 15 }, // 15%
     { subject: "You", verb: "have lost custody of your child", probability: 5 }, // 5%
-    { subject: "You and your spouse", verb: "have experienced a miscarriage", probability: 15 }, // 15%
+    { subject: "You", verb: "have experienced a miscarriage", probability: 15 }, // 15%
     
     { subject: "You", verb: "have had a pet die suddenly", probability: 40 } // 40% - sadly common for pet owners
   ];
