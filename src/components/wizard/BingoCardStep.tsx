@@ -116,8 +116,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
       return { ...item, probability: adjustedProbability };
     }).filter(item => item.probability > 0);
     
-    // Sort by probability (descending)
-    return adjustedMisfortunes.sort((a, b) => b.probability - a.probability);
+    return adjustedMisfortunes;
   };
   
   const calculateAdjustedProbability = (baseProbability: number, count: number): number => {
@@ -125,88 +124,52 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
     return Math.min(baseProbability * (1 + 0.5 * Math.log(count + 1)), 99);
   };
 
+  // Simple string hash function to generate a numeric seed from any string
+  const hashString = (str: string): number => {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    return Math.abs(hash);
+  };
+
   const generateBingoCard = () => {
-    // Set seed from input - sanitize by removing non-numeric characters first
-    const sanitizedInput = configData.seedInput.replace(/[^0-9]/g, '');
-    const seedNumber = parseInt(sanitizedInput) || Math.floor(Math.random() * 1000000);
+    // Get seed from input - use the full input string for hashing
+    const seedInput = configData.seedInput || Math.random().toString();
+    const seedNumber = hashString(seedInput);
     
     // Create seeded random generator
     const random = new SeededRandom(seedNumber);
     
-    const allMisfortunes = getAdjustedMisfortunes();
-    const bingoCard: Misfortune[] = [];
+    // Get all relevant misfortunes based on configuration
+    const relevantMisfortunes = getAdjustedMisfortunes();
     
     // Calculate lifetime misfortune expectation
-    const totalProbability = allMisfortunes.reduce((sum, item) => sum + item.probability, 0);
+    const totalProbability = relevantMisfortunes.reduce((sum, item) => sum + item.probability, 0);
     const averageMisfortunes = totalProbability / 100; // Expected number in a lifetime
     setExpectedEvents(averageMisfortunes);
     
-    // Create probability buckets for a balanced card
-    const highProb = allMisfortunes.filter(m => m.probability >= 30);
-    const mediumProb = allMisfortunes.filter(m => m.probability >= 10 && m.probability < 30);
-    const lowProb = allMisfortunes.filter(m => m.probability < 10);
+    // Shuffle all misfortunes using the seeded random
+    const shuffledMisfortunes = random.shuffle([...relevantMisfortunes]);
     
-    // Use seeded random for shuffling
-    const shuffleAndSlice = (arr: any[], count: number) => {
-      return random.shuffle(arr).slice(0, count);
-    };
+    // Take the first 16 items (or all if less than 16)
+    const selectedItems = shuffledMisfortunes.slice(0, 16);
     
-    // Select misfortunes from each probability bucket
-    const highItems = shuffleAndSlice(highProb, 7);  // More high probability items
-    const mediumItems = shuffleAndSlice(mediumProb, 6); 
-    const lowItems = shuffleAndSlice(lowProb, 3);  // Fewer low probability items
-    
-    // Strategic placement for bingo chances
-    const allItems = [...highItems, ...mediumItems, ...lowItems];
-    allItems.sort(() => random.next() - 0.5); // Shuffle all items with seed
-    
-    // Create a 4x4 grid with all spaces filled with misfortunes
+    // If we don't have enough items, add generic ones to fill the board
+    const bingoCard: Misfortune[] = [];
     for (let i = 0; i < 16; i++) {
-      if (i < allItems.length) {
-        bingoCard.push({...allItems[i], checked: false});
+      if (i < selectedItems.length) {
+        bingoCard.push({...selectedItems[i], checked: false});
       } else {
         // Fallback in case we don't have enough items
-        bingoCard.push({ text: "You have experienced an unexpected misfortune", probability: 5, checked: false });
+        bingoCard.push({ 
+          text: `You have experienced misfortune #${i + 1}`, 
+          probability: 5, 
+          checked: false 
+        });
       }
-    }
-    
-    // Make sure at least one line has a good chance of bingo
-    const ensureWinnableLine = () => {
-      // Possible winning lines (rows, columns, diagonals)
-      const lines = [
-        [0, 1, 2, 3],       // row 1
-        [4, 5, 6, 7],       // row 2
-        [8, 9, 10, 11],     // row 3
-        [12, 13, 14, 15],   // row 4
-        [0, 4, 8, 12],      // column 1
-        [1, 5, 9, 13],      // column 2
-        [2, 6, 10, 14],     // column 3
-        [3, 7, 11, 15],     // column 4
-        [0, 5, 10, 15],     // diagonal 1
-        [3, 6, 9, 12]       // diagonal 2
-      ];
-      
-      // Choose a random line to make more winnable
-      const lineIndex = random.nextInt(0, lines.length - 1);
-      const chosenLine = lines[lineIndex];
-      
-      // Ensure this line has higher probability events
-      const highProbItems = allMisfortunes.filter(m => m.probability >= 40);
-      if (highProbItems.length >= 4) {
-        const selectedHighProb = random.shuffle(highProbItems).slice(0, 4);
-        
-        // Place these high probability items in the chosen line
-        for (let i = 0; i < chosenLine.length; i++) {
-          if (i < selectedHighProb.length) {
-            bingoCard[chosenLine[i]] = {...selectedHighProb[i], checked: false};
-          }
-        }
-      }
-    };
-    
-    // Only try to ensure a winnable line if we have enough items
-    if (allMisfortunes.length >= 16) {
-      ensureWinnableLine();
     }
     
     setBingoItems(bingoCard);
@@ -260,8 +223,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
   // Save the current state of checked items to cookies
   const saveBingoState = () => {
     // Create a cookie key based on the seed to ensure different boards have different saved states
-    const sanitizedInput = configData.seedInput.replace(/[^0-9]/g, '');
-    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${sanitizedInput}`;
+    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${hashString(configData.seedInput)}`;
     
     // Save only the checked state of each item
     const checkedState = bingoItems.map(item => item.checked || false);
@@ -274,8 +236,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
 
   // Load the checked state from cookies
   const loadBingoState = () => {
-    const sanitizedInput = configData.seedInput.replace(/[^0-9]/g, '');
-    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${sanitizedInput}`;
+    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${hashString(configData.seedInput)}`;
     
     const savedState = Cookies.get(cookieKey);
     
