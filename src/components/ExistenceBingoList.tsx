@@ -22,7 +22,7 @@ export function ExistenceBingoList() {
     { subject: "Your parent", verb: "gets a terminal diagnosis", probability: 40 }, // 40% - higher for aging parents
     { subject: "Your sibling", verb: "gets a terminal diagnosis", probability: 20 }, // 20%
     
-    { subject: "You", verb: "become severely disabled", probability: 8 }, // 8%
+    { subject: "You", verb: "become severely disabled", probability: 10 }, // 10%
     { subject: "Your spouse", verb: "becomes severely disabled", probability: 10 }, // 10%
     { subject: "Your child", verb: "becomes severely disabled", probability: 7 }, // 7%
     { subject: "Your parent", verb: "becomes severely disabled", probability: 20 }, // 20% - increases with age
@@ -52,29 +52,24 @@ export function ExistenceBingoList() {
     // Mental health-related
     { subject: "You", verb: "develop severe depression", probability: 20 }, // 20%
     { subject: "You", verb: "develop severe anxiety", probability: 25 }, // 25%
-    { subject: "You", verb: "develop PTSD", probability: 7 }, // 7%
     
     { subject: "Your spouse", verb: "develops severe depression", probability: 20 }, // 20%
     { subject: "Your spouse", verb: "develops severe anxiety", probability: 25 }, // 25%
-    { subject: "Your spouse", verb: "develops PTSD", probability: 7 }, // 7%
     
     { subject: "Your child", verb: "develops severe depression", probability: 15 }, // 15%
     { subject: "Your child", verb: "develops severe anxiety", probability: 18 }, // 18%
-    { subject: "Your child", verb: "develops PTSD", probability: 5 }, // 5%
     
     { subject: "Your parent", verb: "develops severe depression", probability: 15 }, // 15%
     { subject: "Your parent", verb: "develops severe anxiety", probability: 20 }, // 20%
-    { subject: "Your parent", verb: "develops PTSD", probability: 6 }, // 6%
     
     { subject: "Your sibling", verb: "develops severe depression", probability: 18 }, // 18%
     { subject: "Your sibling", verb: "develops severe anxiety", probability: 22 }, // 22%
-    { subject: "Your sibling", verb: "develops PTSD", probability: 7 }, // 7%
     
-    { subject: "You", verb: "attempt suicide", probability: 2 }, // 2%
-    { subject: "Your spouse", verb: "attempts suicide", probability: 2 }, // 2%
-    { subject: "Your child", verb: "attempts suicide", probability: 3 }, // 3% - sadly higher in youth
-    { subject: "Your parent", verb: "attempts suicide", probability: 1.5 }, // 1.5%
-    { subject: "Your sibling", verb: "attempts suicide", probability: 2.5 }, // 2.5%
+    { subject: "You", verb: "commits suicide", probability: 0.5 }, // 0.5% - lifetime risk of completed suicide
+    { subject: "Your spouse", verb: "commits suicide", probability: 0.5 }, // 0.5%
+    { subject: "Your child", verb: "commits suicide", probability: 0.7 }, // 0.7% - slightly higher in youth
+    { subject: "Your parent", verb: "commits suicide", probability: 0.4 }, // 0.4%
+    { subject: "Your sibling", verb: "commits suicide", probability: 0.6 }, // 0.6%
     
     { subject: "You", verb: "are severely bullied", probability: 30 }, // 30% - common experience
     
