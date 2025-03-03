@@ -5,37 +5,37 @@ export function ExistenceBingoList() {
   // Each inner array contains options for that position in the sentence
   const templates = [
     // Health-related
-    [['You', 'Your spouse', 'Your close family member'], ['die unexpectedly']],
-    [['You', 'Your spouse', 'Your close family member'], ['get a terminal diagnosis']],
-    [['You', 'Your spouse', 'Your close family member'], ['become severely disabled']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['die unexpectedly']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['get a terminal diagnosis']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become severely disabled']],
     
     // Addiction-related
-    [['You', 'Your spouse', 'Your close family member'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']],
     
     // Mental health-related
-    [['You', 'Your spouse', 'Your close family member'], ['develop'], ['severe mental health problems', 'chronic illness', 'dementia/cognitive decline']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develop'], ['severe mental health problems', 'chronic illness', 'dementia/cognitive decline']],
     
     // Relationship-related
     [['You', 'Your parents'], ['get divorced']],
-    [['You', 'Your spouse', 'Your close family member'], ['experience'], ['severe betrayal/infidelity']],
-    [['You', 'Your spouse', 'Your close family member'], ['is severely bullied']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['severe betrayal/infidelity']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is severely bullied']],
     
     // Financial/work-related
-    [['You', 'Your spouse', 'Your close family member'], ['experience financial ruin']],
-    [['You', 'Your spouse', 'Your close family member'], ['suddenly lose their job']],
-    [['You', 'Your spouse', 'Your close family member'], ['become homeless']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience financial ruin']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['suddenly lose their job']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become homeless']],
     
     // Crime/safety-related
-    [['You', 'Your spouse', 'Your close family member'], ['become'], ['sexually assaulted', 'victims of violent crime', 'imprisoned']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become'], ['sexually assaulted', 'victims of violent crime', 'imprisoned']],
     
     // Disaster-related
-    [['You', 'Your spouse', 'Your close family member'], ['experience'], ['a natural disaster', 'a serious accident']],
-    [['You', 'Your spouse', 'Your close family member'], ['experiences war']],
-    [['You', 'Your spouse', 'Your close family member'], ['face serious legal troubles']],
-    [['You', 'Your spouse', 'Your close family member'], ['are forced to leave your home']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['a natural disaster', 'a serious accident']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences war']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['face serious legal troubles']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['are forced to leave your home']],
     
     // Other specific cases
-    [['You'], ['experience miscarriage']],
+    [['Your child', 'Your spouse'], ['experience miscarriage']],
     [['Your pet'], ['dies']],
   ];
 
