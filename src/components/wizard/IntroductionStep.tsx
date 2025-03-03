@@ -9,31 +9,36 @@ interface IntroductionStepProps {
 
 export function IntroductionStep({ onNext }: IntroductionStepProps) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <div className="max-w-md mx-auto">
-        <h3 className="text-lg font-bold mb-3 font-heading">Life&apos;s Bingo</h3>
+    <div className="flex flex-col items-center">
+      <div className="w-full max-w-md mx-auto">
+        <h3 className="text-lg font-bold mb-4 text-center">Welcome to Life's Bingo</h3>
         
-        <p className="text-sm mb-5">
-          A personalized bingo board of potential life misfortunes.
-        </p>
-        
-        <Card className="bg-muted/30 p-4 rounded mb-5">
-          <p className="text-sm">
-            This board is uniquely generated based on your personal identifier and family situation. 
-            Each square represents a potential life challenge with its probability adjusted to your circumstances.
+        <Card className="p-4 mb-4">
+          <p className="mb-4">
+            This is simply a reflection of what life is. A personalized bingo board based on the challenges we all face.
+          </p>
+          
+          <p className="mb-4">
+            Configure your board based on your life situation, and we'll generate a unique 4x4 grid of potential life challenges.
+          </p>
+          
+          <p className="mb-4">
+            Mark off events you've experienced. Get four in a row to achieve bingo!
+          </p>
+          
+          <p className="mb-4">
+            On average, people will check about 9 tiles on their board. Those with larger families might check more. How will you compare?
+          </p>
+          
+          <p className="text-sm text-muted-foreground">
+            <strong>Note:</strong> All data stays in your browser. Nothing is sent to any server.
           </p>
         </Card>
-        
-        <div className="bg-primary/10 border border-primary/20 rounded-md p-3 mb-5">
-          <p className="text-sm font-medium">
-            Statistically, about 35-40% of people will get a bingo on their board during their lifetime.
-          </p>
-        </div>
       </div>
       
-      <div className="mt-3 w-full max-w-xs">
-        <Button onClick={onNext} size="sm" className="w-full">
-          Next: Configure Your Card
+      <div className="flex justify-end w-full max-w-md mt-3">
+        <Button onClick={onNext} size="sm">
+          Continue
         </Button>
       </div>
     </div>
