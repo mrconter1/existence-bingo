@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { AlertCircle, Info } from "lucide-react";
+import { AlertCircle, HelpCircle } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export interface ConfigData {
@@ -64,7 +64,7 @@ export function ConfigurationForm({
           <div className="flex items-center gap-1 md:gap-2">
             <Label htmlFor="spouse-toggle" className={`${textSize} font-medium`}>Spouse/partner</Label>
             <div className="relative group">
-              <Info 
+              <HelpCircle 
                 className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
                 onClick={() => toggleTooltip('spouse')}
               />
@@ -88,7 +88,7 @@ export function ConfigurationForm({
           <div className="flex items-center gap-1 md:gap-2">
             <Label htmlFor="pet-toggle" className={`${textSize} font-medium`}>Pets</Label>
             <div className="relative group">
-              <Info 
+              <HelpCircle 
                 className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
                 onClick={() => toggleTooltip('pet')}
               />
@@ -115,7 +115,7 @@ export function ConfigurationForm({
             <div className="flex items-center gap-1 md:gap-2">
               <Label htmlFor="child-slider" className={`${textSize} font-medium`}>Children: {configData.childCount}</Label>
               <div className="relative group">
-                <Info 
+                <HelpCircle 
                   className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
                   onClick={() => toggleTooltip('child')}
                 />
@@ -144,7 +144,7 @@ export function ConfigurationForm({
             <div className="flex items-center gap-1 md:gap-2">
               <Label htmlFor="sibling-slider" className={`${textSize} font-medium`}>Siblings: {configData.siblingCount}</Label>
               <div className="relative group">
-                <Info 
+                <HelpCircle 
                   className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
                   onClick={() => toggleTooltip('sibling')}
                 />
@@ -173,7 +173,7 @@ export function ConfigurationForm({
         <div className="flex items-center gap-1 md:gap-2">
           <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Personal Identifier</Label>
           <div className="relative group">
-            <Info 
+            <HelpCircle 
               className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
               onClick={() => toggleTooltip('seed')}
             />
