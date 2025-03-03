@@ -81,7 +81,7 @@ export function ExistenceBingoList() {
     { text: "You've had parents divorcing", probability: 35 }, // 35%
     
     // Financial/work-related
-    { text: "You've experienced gone bankrupt", probability: 15 }, // 15%
+    { text: "You've gone bankrupt", probability: 15 }, // 15%
     { text: "You've had a spouse that has gone bankrupt", probability: 15 }, // 15%
     { text: "You've had a child that has gone bankrupt", probability: 10 }, // 10%
     { text: "You've had a parent that has gone bankrupt", probability: 10 }, // 10%
