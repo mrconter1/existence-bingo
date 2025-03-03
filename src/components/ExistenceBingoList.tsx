@@ -332,8 +332,7 @@ export function ExistenceBingoList() {
       <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Life Events Bingo</h2>
       
       <div className="mb-8 p-4 border rounded-lg">
-        <h3 className="text-lg font-semibold mb-4">Customize Your Family</h3>
-        <p className="text-sm text-muted-foreground mb-4">Include both current and planned family members in your life.</p>
+        <h3 className="text-lg font-semibold mb-4">Family Configuration</h3>
         
         <div className="space-y-4">
           <div className="flex items-center justify-between">
