@@ -195,50 +195,43 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
   };
 
   return (
-    <div className="space-y-6">
-      <Card className="p-6">
-        <h3 className="text-xl font-bold mb-2 text-center">Your Life Events Bingo Card</h3>
-        <p className="text-sm text-muted-foreground mb-2 text-center">
-          Mark off the events you've experienced in your life!
-        </p>
-        <p className="text-xs text-muted-foreground mb-6 text-center">
-          This board is uniquely generated based on your personal number and family configuration.
-          Share your personal number with friends to compare the same board!
-        </p>
-        
+    <div className="flex flex-col flex-1 space-y-2">
+      <div className="flex justify-between items-center">
+        <h3 className="text-base font-bold">Life Events Bingo</h3>
         {hasBingo && (
-          <div className="bg-yellow-100 dark:bg-yellow-900 p-4 mb-6 rounded-lg text-center animate-pulse">
-            <h4 className="text-lg font-bold">BINGO!</h4>
-            <p>You've completed a line of life's challenges!</p>
+          <div className="bg-yellow-100 dark:bg-yellow-900 px-2 py-0.5 rounded text-xs font-bold animate-pulse">
+            BINGO!
           </div>
         )}
-        
-        <div className="grid grid-cols-4 gap-2 mb-6">
+      </div>
+      
+      <p className="text-xs text-muted-foreground">
+        Mark off events you've experienced. Board is unique to your personal number.
+      </p>
+      
+      {/* Square bingo board - reduced size */}
+      <div className="flex-1 aspect-square w-full max-w-[500px] mx-auto">
+        <div className="grid grid-cols-4 grid-rows-4 gap-1 h-full">
           {bingoItems.map((item, index) => (
             <Card 
               key={index} 
-              className={`p-2 text-xs h-24 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
+              className={`p-1 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
                 ${item.checked 
                   ? "bg-primary/20 border-primary" 
                   : "hover:bg-accent"}`}
               onClick={() => toggleChecked(index)}
             >
-              <span className={item.checked ? "line-through opacity-70" : ""}>{item.text}</span>
-              <span className="block mt-1 text-muted-foreground text-xs">
-                ({item.probability.toFixed(1)}%)
+              <span className={`text-[0.7rem] leading-tight ${item.checked ? "line-through opacity-70" : ""}`}>
+                {item.text}
               </span>
             </Card>
           ))}
         </div>
-        
-        <p className="text-sm text-muted-foreground text-center mb-4">
-          Based on your configuration, you might experience about {expectedEvents.toFixed(1)} of these events in your lifetime.
-        </p>
-      </Card>
+      </div>
       
-      <div className="flex justify-start">
-        <Button onClick={onBack} variant="outline">
-          Back to Configuration
+      <div className="flex justify-between items-center text-xs mt-1">
+        <Button onClick={onBack} variant="outline" size="sm">
+          Back
         </Button>
       </div>
     </div>

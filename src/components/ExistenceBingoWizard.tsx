@@ -28,28 +28,26 @@ export function ExistenceBingoWizard() {
   };
 
   return (
-    <div className="w-full max-w-3xl mx-auto p-8 rounded-lg bg-card">
-      <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Existence Bingo</h2>
-      
-      {/* Step indicators */}
-      <div className="flex justify-center mb-8">
-        <div className="flex items-center">
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${currentStep >= 0 ? "bg-primary border-primary text-primary-foreground" : "border-muted-foreground text-muted-foreground"}`}>
+    <div className="w-full max-w-lg mx-auto p-4 rounded-lg bg-card flex flex-col h-full">
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-xl font-bold text-foreground">Existence Bingo</h2>
+        
+        {/* Compact step indicators */}
+        <div className="flex items-center gap-1">
+          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             1
           </div>
-          <div className={`w-16 h-1 ${currentStep >= 1 ? "bg-primary" : "bg-muted-foreground/30"}`}></div>
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${currentStep >= 1 ? "bg-primary border-primary text-primary-foreground" : "border-muted-foreground text-muted-foreground"}`}>
+          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             2
           </div>
-          <div className={`w-16 h-1 ${currentStep >= 2 ? "bg-primary" : "bg-muted-foreground/30"}`}></div>
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center border-2 ${currentStep >= 2 ? "bg-primary border-primary text-primary-foreground" : "border-muted-foreground text-muted-foreground"}`}>
+          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             3
           </div>
         </div>
       </div>
 
-      {/* Step content */}
-      <div className="min-h-[400px]">
+      {/* Content container that fills available space */}
+      <div className="flex-1 flex flex-col">
         {currentStep === 0 && (
           <IntroductionStep onNext={goToNextStep} />
         )}

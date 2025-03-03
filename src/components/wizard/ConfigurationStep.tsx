@@ -2,7 +2,6 @@
 
 import { ChangeEvent } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
@@ -31,23 +30,40 @@ export function ConfigurationStep({
   onBack 
 }: ConfigurationStepProps) {
   return (
-    <div className="space-y-6">
-      <Card className="p-6 space-y-4">
-        <h3 className="text-xl font-bold mb-4">Personal Configuration</h3>
+    <div className="flex flex-col flex-1">
+      <div className="flex-1">
+        <h3 className="text-lg font-bold mb-2">Personal Configuration</h3>
         
-        <div className="space-y-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="spouse-toggle" className="cursor-pointer">You have or plan to have a spouse/partner</Label>
-            <Switch 
-              id="spouse-toggle" 
-              checked={configData.hasSpouse} 
-              onCheckedChange={(checked) => onConfigChange({ hasSpouse: checked })} 
-            />
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <div>
+            <Label htmlFor="spouse-toggle" className="text-sm">Spouse/partner</Label>
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-xs text-muted-foreground">Have/plan to have</span>
+              <Switch 
+                id="spouse-toggle" 
+                checked={configData.hasSpouse} 
+                onCheckedChange={(checked) => onConfigChange({ hasSpouse: checked })} 
+              />
+            </div>
           </div>
           
-          <div className="space-y-2">
+          <div>
+            <Label htmlFor="pet-toggle" className="text-sm">Pets</Label>
+            <div className="flex items-center justify-between mt-1">
+              <span className="text-xs text-muted-foreground">Have/plan to have</span>
+              <Switch 
+                id="pet-toggle" 
+                checked={configData.hasPet} 
+                onCheckedChange={(checked) => onConfigChange({ hasPet: checked })} 
+              />
+            </div>
+          </div>
+        </div>
+        
+        <div className="space-y-2 mb-3">
+          <div>
             <div className="flex justify-between">
-              <Label htmlFor="child-slider">Number of children (current or planned): {configData.childCount}</Label>
+              <Label htmlFor="child-slider" className="text-sm">Children: {configData.childCount}</Label>
             </div>
             <Slider 
               id="child-slider"
@@ -56,13 +72,13 @@ export function ConfigurationStep({
               step={1} 
               value={[configData.childCount]} 
               onValueChange={(value: number[]) => onConfigChange({ childCount: value[0] })} 
-              className="py-4"
+              className="py-1"
             />
           </div>
           
-          <div className="space-y-2">
+          <div>
             <div className="flex justify-between">
-              <Label htmlFor="sibling-slider">Number of siblings (including step-siblings): {configData.siblingCount}</Label>
+              <Label htmlFor="sibling-slider" className="text-sm">Siblings: {configData.siblingCount}</Label>
             </div>
             <Slider 
               id="sibling-slider"
@@ -71,56 +87,43 @@ export function ConfigurationStep({
               step={1} 
               value={[configData.siblingCount]} 
               onValueChange={(value: number[]) => onConfigChange({ siblingCount: value[0] })} 
-              className="py-4"
-            />
-          </div>
-          
-          <div className="flex items-center justify-between">
-            <Label htmlFor="pet-toggle" className="cursor-pointer">You have or plan to have pets</Label>
-            <Switch 
-              id="pet-toggle" 
-              checked={configData.hasPet} 
-              onCheckedChange={(checked) => onConfigChange({ hasPet: checked })} 
-            />
-          </div>
-          
-          <div className="space-y-2 mt-4">
-            <Label htmlFor="seed-input">Your Personal Number (or ID number)</Label>
-            <p className="text-xs text-muted-foreground mb-2">
-              This number is used as a seed to generate your unique bingo board. Using the same number will always generate the same board.
-            </p>
-            <Input 
-              id="seed-input"
-              type="text" 
-              value={configData.seedInput}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => onConfigChange({ seedInput: e.target.value })} 
-              placeholder="Enter your personal number" 
+              className="py-1"
             />
           </div>
         </div>
         
-        <div className="mt-6 bg-muted/50 p-4 rounded-lg flex gap-3">
-          <AlertCircle className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" />
-          <div className="text-sm text-muted-foreground">
-            <p className="font-medium mb-1">Privacy Notice</p>
-            <p>
-              Your personal information is only stored locally on your device. We do not collect, store, 
-              or transmit any of your data to our servers. Your personal number is only used as a seed to 
-              generate your unique bingo board.
-            </p>
-          </div>
+        <div className="space-y-1 mb-3">
+          <Label htmlFor="seed-input" className="text-sm">Your Personal Number</Label>
+          <p className="text-xs text-muted-foreground">
+            Used as a seed. Same number = same board.
+          </p>
+          <Input 
+            id="seed-input"
+            type="text" 
+            value={configData.seedInput}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => onConfigChange({ seedInput: e.target.value })} 
+            placeholder="Enter your personal number" 
+          />
         </div>
-      </Card>
+        
+        <div className="bg-muted/30 p-2 rounded-md flex gap-2 items-start">
+          <AlertCircle className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+          <p className="text-xs text-muted-foreground">
+            Your information is only stored locally on your device.
+          </p>
+        </div>
+      </div>
       
-      <div className="flex justify-between">
-        <Button onClick={onBack} variant="outline">
+      <div className="flex justify-between mt-3">
+        <Button onClick={onBack} variant="outline" size="sm">
           Back
         </Button>
         <Button 
           onClick={onNext} 
           disabled={!configData.seedInput.trim()}
+          size="sm"
         >
-          Generate My Bingo Board
+          Generate Board
         </Button>
       </div>
     </div>

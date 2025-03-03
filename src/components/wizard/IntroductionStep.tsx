@@ -9,50 +9,43 @@ interface IntroductionStepProps {
 
 export function IntroductionStep({ onNext }: IntroductionStepProps) {
   return (
-    <div className="space-y-6">
-      <Card className="p-6 space-y-4">
-        <h3 className="text-xl font-bold">Welcome to Existence Bingo</h3>
+    <div className="flex flex-col flex-1">
+      <div className="flex-1">
+        <h3 className="text-lg font-bold mb-2">Welcome to Existence Bingo</h3>
         
-        <div className="space-y-3">
-          <p>
-            Existence Bingo is a thought-provoking exploration of life's unpredictable events and challenges. 
-            Based on statistical probabilities, this application creates a personalized "bingo card" of life events 
-            that you might experience during your lifetime.
-          </p>
+        <p className="text-sm mb-3">
+          A personalized "bingo card" of life events based on statistical probabilities. 
+          Mark events you've experienced and see if you get a bingo!
+        </p>
+        
+        <div className="grid grid-cols-2 gap-3 mb-3">
+          <div className="bg-muted/30 p-2 rounded">
+            <h4 className="text-sm font-semibold mb-1">How It Works</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-xs">
+              <li>Personal number creates your unique board</li>
+              <li>Events based on real-world probabilities</li>
+              <li>Family configuration adjusts probabilities</li>
+            </ul>
+          </div>
           
-          <h4 className="text-lg font-semibold mt-4">How It Works</h4>
-          <p>
-            The application uses your personal number (like a national ID) as a seed to generate a unique 4x4 bingo board.
-            Each square contains a life event with its statistical probability of occurring in an average lifetime.
-          </p>
-          
-          <p>
-            The events shown on your board are selected based on their real-world probability, adjusted for your family 
-            configuration (spouse, children, siblings, pets). This creates a balanced experience where:
-          </p>
-          
-          <ul className="list-disc pl-6 space-y-2">
-            <li>Some events are common (30%+ probability)</li>
-            <li>Some events are moderately likely (10-30% probability)</li>
-            <li>Some events are rare (less than 10% probability)</li>
-          </ul>
-          
-          <h4 className="text-lg font-semibold mt-4">About Life-Long Probability</h4>
-          <p>
-            On average, the statistical probability of getting a "bingo" (completing a row, column, or diagonal on your card) 
-            during your lifetime is around 30-40%. This reflects the balance between common and rare events, and the random 
-            distribution of events on your board.
-          </p>
-          
-          <p>
-            The probabilities are approximate and based on available research data. They may vary based on many factors including 
-            geography, socioeconomic status, and personal choices.
-          </p>
+          <div className="bg-muted/30 p-2 rounded">
+            <h4 className="text-sm font-semibold mb-1">Probability Ranges</h4>
+            <ul className="list-disc pl-4 space-y-0.5 text-xs">
+              <li>Common events (30%+)</li>
+              <li>Moderate events (10-30%)</li>
+              <li>Rare events (under 10%)</li>
+            </ul>
+          </div>
         </div>
-      </Card>
+        
+        <p className="text-xs text-muted-foreground">
+          The chance of getting a "bingo" in your lifetime is around 30-40%. Probabilities are approximate 
+          and based on available research.
+        </p>
+      </div>
       
-      <div className="flex justify-end">
-        <Button onClick={onNext} size="lg">
+      <div className="mt-3">
+        <Button onClick={onNext} size="sm">
           Next: Configure Your Card
         </Button>
       </div>
