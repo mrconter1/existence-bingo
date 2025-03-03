@@ -5,7 +5,7 @@ import { IntroductionStep } from "./wizard/IntroductionStep";
 import { ConfigurationStep } from "./wizard/ConfigurationStep";
 import { BingoCardStep } from "./wizard/BingoCardStep";
 import Cookies from "js-cookie";
-import { Settings, X } from "lucide-react";
+import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { ConfigurationForm } from "@/components/ConfigurationForm";
