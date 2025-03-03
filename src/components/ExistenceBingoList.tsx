@@ -72,16 +72,15 @@ export function ExistenceBingoList() {
     { text: "You've had a sibling that has struggled with severe depression", probability: 9 }, // 9%
     
     // Relationship-related
-    { text: "You've gone through a divorce or relationship breakdown", probability: 40 }, // 40%
-    { text: "You've had a child that has gone through a divorce", probability: 35 }, // 35%
-    { text: "You've had a sibling that has gone through a divorce", probability: 35 }, // 35%
+    { text: "You've gone through a divorce", probability: 40 }, // 40%
+    { text: "You've had parents divorcing", probability: 35 }, // 35%
     
     // Financial/work-related
-    { text: "You've experienced financial ruin", probability: 15 }, // 15%
-    { text: "You've had a spouse that has experienced financial ruin", probability: 15 }, // 15%
-    { text: "You've had a child that has experienced financial ruin", probability: 10 }, // 10%
-    { text: "You've had a parent that has experienced financial ruin", probability: 10 }, // 10%
-    { text: "You've had a sibling that has experienced financial ruin", probability: 10 }, // 10%
+    { text: "You've experienced gone bankrupt", probability: 15 }, // 15%
+    { text: "You've had a spouse that has gone bankrupt", probability: 15 }, // 15%
+    { text: "You've had a child that has gone bankrupt", probability: 10 }, // 10%
+    { text: "You've had a parent that has gone bankrupt", probability: 10 }, // 10%
+    { text: "You've had a sibling that has gone bankrupt", probability: 10 }, // 10%
     
     { text: "You've lost your job unexpectedly", probability: 30 }, // 30%
     { text: "You've had a spouse lose their job unexpectedly", probability: 30 }, // 30%
@@ -107,24 +106,24 @@ export function ExistenceBingoList() {
     { text: "You've had a parent go missing", probability: 0.3 }, // 0.3%
     { text: "You've had a sibling go missing", probability: 0.5 }, // 0.5%
     
-    { text: "You've experienced stalking or harassment", probability: 8 }, // 8%
-    { text: "You've had a spouse that has experienced stalking or harassment", probability: 8 }, // 8%
-    { text: "You've had a child that has experienced stalking or harassment", probability: 6 }, // 6%
-    { text: "You've had a parent that has experienced stalking or harassment", probability: 4 }, // 4%
-    { text: "You've had a sibling that has experienced stalking or harassment", probability: 6 }, // 6%
+    { text: "You've experienced stalking", probability: 8 }, // 8%
+    { text: "You've had a spouse that has experienced stalking", probability: 8 }, // 8%
+    { text: "You've had a child that has experienced stalking", probability: 6 }, // 6%
+    { text: "You've had a parent that has experienced stalking", probability: 4 }, // 4%
+    { text: "You've had a sibling that has experienced stalking", probability: 6 }, // 6%
     
-    { text: "You've been a victim of identity theft", probability: 10 }, // 10%
-    { text: "You've had a spouse that has been a victim of identity theft", probability: 10 }, // 10%
-    { text: "You've had a child that has been a victim of identity theft", probability: 8 }, // 8%
-    { text: "You've had a parent that has been a victim of identity theft", probability: 12 }, // 12%
-    { text: "You've had a sibling that has been a victim of identity theft", probability: 9 }, // 9%
+    { text: "You've been a victim of serious identity theft", probability: 10 }, // 10%
+    { text: "You've had a spouse that has been a victim of serious identity theft", probability: 10 }, // 10%
+    { text: "You've had a child that has been a victim of serious identity theft", probability: 8 }, // 8%
+    { text: "You've had a parent that has been a victim of serious identity theft", probability: 12 }, // 12%
+    { text: "You've had a sibling that has been a victim of serious identity theft", probability: 9 }, // 9%
     
     // Disaster-related
-    { text: "You've had your home severely affected by a natural disaster", probability: 3 }, // 3%
-    { text: "You've had a spouse's home severely affected by a natural disaster", probability: 3 }, // 3%
-    { text: "You've had a child's home severely affected by a natural disaster", probability: 3 }, // 3%
-    { text: "You've had a parent's home severely affected by a natural disaster", probability: 3 }, // 3%
-    { text: "You've had a sibling's home severely affected by a natural disaster", probability: 3 }, // 3%
+    { text: "You've been severely affected by a natural disaster", probability: 3 }, // 3%
+    { text: "You've had a spouse being serverly affected by a natural disaster", probability: 3 }, // 3%
+    { text: "You've had a child being serverly affected by a natural disaster", probability: 3 }, // 3%
+    { text: "You've had a parent being serverly affected by a natural disaster", probability: 3 }, // 3%
+    { text: "You've had a sibling being serverly affected by a natural disaster", probability: 3 }, // 3%
     
     // Specific cases
     { text: "You've had a spouse cheat on you", probability: 15 }, // 15%
