@@ -23,6 +23,11 @@ export function ExistenceBingoList() {
   const [showBingoCard, setShowBingoCard] = useState(false);
   const [bingoItems, setBingoItems] = useState<{text: string, probability: number, checked?: boolean}[]>([]);
   
+  // New state for the life simulation
+  const [simulationResults, setSimulationResults] = useState<string[]>([]);
+  const [showSimulation, setShowSimulation] = useState(false);
+  const [expectedEvents, setExpectedEvents] = useState(0);
+  
   // Base misfortunes with probabilities - simplified format
   const baseMisfortunes: Misfortune[] = [
     // Health-related
@@ -325,11 +330,36 @@ export function ExistenceBingoList() {
     }
   }, [hasSpouse, childCount, siblingCount, hasPet, showBingoCard]);
   
+  // New function to simulate life events
+  const simulateLifeEvents = () => {
+    const adjustedMisfortunes = getAdjustedMisfortunes();
+    const simulatedEvents: string[] = [];
+    
+    // Calculate expected number of events
+    const totalProbability = adjustedMisfortunes.reduce((sum, item) => sum + item.probability, 0);
+    setExpectedEvents(totalProbability / 100);
+    
+    // Roll the dice for each possible event
+    adjustedMisfortunes.forEach(event => {
+      const roll = Math.random() * 100;
+      if (roll < event.probability) {
+        simulatedEvents.push(event.text);
+      }
+    });
+    
+    // Sort events alphabetically for better readability
+    simulatedEvents.sort();
+    
+    setSimulationResults(simulatedEvents);
+    setShowSimulation(true);
+    setShowBingoCard(false);
+  };
+  
   const formattedMisfortunes = getAdjustedMisfortunes();
   
   return (
     <div className="w-full max-w-3xl mx-auto p-8 rounded-lg bg-card">
-      <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Life Events Bingo</h2>
+      <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Life Events Simulator</h2>
       
       <div className="mb-8 p-4 border rounded-lg">
         <h3 className="text-lg font-semibold mb-4">Family Configuration</h3>
@@ -383,13 +413,50 @@ export function ExistenceBingoList() {
             />
           </div>
           
-          <div className="flex justify-center pt-4">
-            <Button onClick={() => generateBingoCard()}>
-              {showBingoCard ? "Generate New Bingo Card" : "Create Bingo Card"}
+          <div className="flex justify-center space-x-4 pt-4">
+            <Button onClick={() => simulateLifeEvents()} variant="default">
+              Simulate My Life Events
+            </Button>
+            <Button onClick={() => generateBingoCard()} variant="outline">
+              Create Bingo Card Instead
             </Button>
           </div>
         </div>
       </div>
+      
+      {showSimulation && (
+        <div className="mb-6">
+          <h3 className="text-xl font-bold mb-2 text-center">Your Simulated Life Events</h3>
+          <p className="text-sm text-muted-foreground mb-4 text-center">
+            Based on probability calculations, you might experience about {expectedEvents.toFixed(1)} events in your lifetime.
+            Your simulation resulted in {simulationResults.length} events:
+          </p>
+          
+          {simulationResults.length === 0 ? (
+            <div className="bg-green-100 dark:bg-green-900 p-4 rounded-lg text-center">
+              <h4 className="text-lg font-bold">Lucky You!</h4>
+              <p>The simulation didn't result in any adverse life events. Consider yourself very fortunate!</p>
+            </div>
+          ) : (
+            <div className="border rounded-lg p-4">
+              <ol className="list-decimal pl-6 space-y-1">
+                {simulationResults.map((event, index) => (
+                  <li key={index} className="py-1">{event}</li>
+                ))}
+              </ol>
+            </div>
+          )}
+          
+          <div className="flex justify-center space-x-4 mt-6">
+            <Button onClick={() => simulateLifeEvents()} variant="default">
+              Roll Again
+            </Button>
+            <Button onClick={() => generateBingoCard()} variant="outline">
+              Try Bingo Card Instead
+            </Button>
+          </div>
+        </div>
+      )}
       
       {showBingoCard ? (
         <div className="mb-6">
