@@ -1,44 +1,138 @@
 "use client"
 
 export function ExistenceBingoList() {
-  // Define templates as arrays of arrays
+  // Define templates as arrays of arrays with proper subject-verb agreement
   // Each inner array contains options for that position in the sentence
   const templates = [
     // Health-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['die unexpectedly']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['get a terminal diagnosis']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become severely disabled']],
+    [
+      ['You'], ['die unexpectedly']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['dies unexpectedly']
+    ],
+    [
+      ['You'], ['get a terminal diagnosis']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['gets a terminal diagnosis']
+    ],
+    [
+      ['You'], ['become severely disabled']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['becomes severely disabled']
+    ],
     
     // Addiction-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']],
+    [
+      ['You'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develops a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']
+    ],
     
     // Mental health-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develop'], ['severe mental health problems', 'a challenging chronic illness']],
+    [
+      ['You'], ['develop'], ['severe mental health problems', 'a challenging chronic illness']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develops'], ['severe mental health problems', 'a challenging chronic illness']
+    ],
     
     // Relationship-related
-    [['You', 'Your parents'], ['get divorced']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['severe betrayal/infidelity']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is severely bullied']],
+    [
+      ['You'], ['get divorced']
+    ],
+    [
+      ['Your parents'], ['get divorced']
+    ],
+    [
+      ['You'], ['experience'], ['severe betrayal/infidelity']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['severe betrayal/infidelity']
+    ],
+    [
+      ['You'], ['are severely bullied']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is severely bullied']
+    ],
     
     // Financial/work-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience financial ruin']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['suddenly lose their job']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become homeless']],
+    [
+      ['You'], ['experience financial ruin']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences financial ruin']
+    ],
+    [
+      ['You'], ['suddenly lose your job']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['suddenly loses their job']
+    ],
+    [
+      ['You'], ['become homeless']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['becomes homeless']
+    ],
     
     // Crime/safety-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become'], ['sexually assaulted', 'victims of violent crime', 'imprisoned']],
-    [['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['go missing']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['stalking or harassment']],
+    [
+      ['You'], ['are'], ['sexually assaulted', 'a victim of violent crime', 'imprisoned']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is'], ['sexually assaulted', 'a victim of violent crime', 'imprisoned']
+    ],
+    [
+      ['You'], ['go missing']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['goes missing']
+    ],
+    [
+      ['You'], ['experience'], ['stalking or harassment']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['stalking or harassment']
+    ],
     
     // Disaster-related
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['a natural disaster', 'a serious accident']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences war']],
-    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['face serious legal troubles']],
-    [['You', 'Your child', 'Your parent', 'Your sibling'], ['are forced to leave your home']],
+    [
+      ['You'], ['experience'], ['a natural disaster', 'a serious accident']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['a natural disaster', 'a serious accident']
+    ],
+    [
+      ['You'], ['experience war']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences war']
+    ],
+    [
+      ['You'], ['face serious legal troubles']
+    ],
+    [
+      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['faces serious legal troubles']
+    ],
+    [
+      ['You'], ['are forced to leave your home']
+    ],
+    [
+      ['Your child', 'Your parent', 'Your sibling'], ['is forced to leave their home']
+    ],
     
     // Other specific cases
-    [['You', 'Your child'], ['experience miscarriage']],
-    [['Your pet'], ['dies']],
+    [
+      ['You', 'Your child'], ['experience a miscarriage']
+    ],
+    [
+      ['Your pet'], ['dies']
+    ],
   ];
 
   // Generate all possible permutations from a template
