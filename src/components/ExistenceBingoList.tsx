@@ -1,178 +1,183 @@
 "use client"
 
+interface Misfortune {
+  subject: string;
+  verb: string;
+  object?: string;
+  probability: number;
+}
+
 export function ExistenceBingoList() {
-  // Define templates as arrays of arrays with proper subject-verb agreement
-  // Each inner array contains options for that position in the sentence
-  const templates = [
+  // Define misfortunes with specific probabilities for each subject-event combination
+  const misfortunes: Misfortune[] = [
     // Health-related
-    [
-      ['You'], ['die unexpectedly']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['dies unexpectedly']
-    ],
-    [
-      ['You'], ['get a terminal diagnosis']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['gets a terminal diagnosis']
-    ],
-    [
-      ['You'], ['become severely disabled']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['becomes severely disabled']
-    ],
+    { subject: "Your spouse", verb: "dies unexpectedly", probability: 3 }, // 3%
+    { subject: "Your child", verb: "dies unexpectedly", probability: 1.5 }, // 1.5% - sadly, some children die before parents
+    { subject: "Your parent", verb: "dies unexpectedly", probability: 8 }, // 8% - more common as parents age
+    { subject: "Your sibling", verb: "dies unexpectedly", probability: 4 }, // 4%
+    
+    { subject: "You", verb: "get a terminal diagnosis", probability: 20 }, // 20% - serious illness in lifetime
+    { subject: "Your spouse", verb: "gets a terminal diagnosis", probability: 22 }, // 22%
+    { subject: "Your child", verb: "gets a terminal diagnosis", probability: 5 }, // 5% - less common in children
+    { subject: "Your parent", verb: "gets a terminal diagnosis", probability: 40 }, // 40% - higher for aging parents
+    { subject: "Your sibling", verb: "gets a terminal diagnosis", probability: 20 }, // 20%
+    
+    { subject: "You", verb: "become severely disabled", probability: 8 }, // 8%
+    { subject: "Your spouse", verb: "becomes severely disabled", probability: 10 }, // 10%
+    { subject: "Your child", verb: "becomes severely disabled", probability: 7 }, // 7%
+    { subject: "Your parent", verb: "becomes severely disabled", probability: 20 }, // 20% - increases with age
+    { subject: "Your sibling", verb: "becomes severely disabled", probability: 9 }, // 9%
     
     // Addiction-related
-    [
-      ['You'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develops a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']
-    ],
+    { subject: "You", verb: "develop a gambling addiction", probability: 2 }, // 2%
+    { subject: "You", verb: "develop an alcohol addiction", probability: 5 }, // 5%
+    { subject: "You", verb: "develop a drug addiction", probability: 3 }, // 3%
+    
+    { subject: "Your spouse", verb: "develops a gambling addiction", probability: 2 }, // 2%
+    { subject: "Your spouse", verb: "develops an alcohol addiction", probability: 5 }, // 5%
+    { subject: "Your spouse", verb: "develops a drug addiction", probability: 3 }, // 3%
+    
+    { subject: "Your child", verb: "develops a gambling addiction", probability: 1.5 }, // 1.5%
+    { subject: "Your child", verb: "develops an alcohol addiction", probability: 8 }, // 8% - commonly experimented in youth
+    { subject: "Your child", verb: "develops a drug addiction", probability: 6 }, // 6%
+    
+    { subject: "Your parent", verb: "develops a gambling addiction", probability: 1.5 }, // 1.5%
+    { subject: "Your parent", verb: "develops an alcohol addiction", probability: 7 }, // 7%
+    { subject: "Your parent", verb: "develops a drug addiction", probability: 2 }, // 2%
+    
+    { subject: "Your sibling", verb: "develops a gambling addiction", probability: 2 }, // 2%
+    { subject: "Your sibling", verb: "develops an alcohol addiction", probability: 8 }, // 8%
+    { subject: "Your sibling", verb: "develops a drug addiction", probability: 5 }, // 5%
     
     // Mental health-related
-    [
-      ['You'], ['develop'], ['severe mental health problems', 'a challenging chronic illness']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['develops'], ['severe mental health problems', 'a challenging chronic illness']
-    ],
+    { subject: "You", verb: "develop severe depression", probability: 20 }, // 20%
+    { subject: "You", verb: "develop severe anxiety", probability: 25 }, // 25%
+    { subject: "You", verb: "develop PTSD", probability: 7 }, // 7%
+    
+    { subject: "Your spouse", verb: "develops severe depression", probability: 20 }, // 20%
+    { subject: "Your spouse", verb: "develops severe anxiety", probability: 25 }, // 25%
+    { subject: "Your spouse", verb: "develops PTSD", probability: 7 }, // 7%
+    
+    { subject: "Your child", verb: "develops severe depression", probability: 15 }, // 15%
+    { subject: "Your child", verb: "develops severe anxiety", probability: 18 }, // 18%
+    { subject: "Your child", verb: "develops PTSD", probability: 5 }, // 5%
+    
+    { subject: "Your parent", verb: "develops severe depression", probability: 15 }, // 15%
+    { subject: "Your parent", verb: "develops severe anxiety", probability: 20 }, // 20%
+    { subject: "Your parent", verb: "develops PTSD", probability: 6 }, // 6%
+    
+    { subject: "Your sibling", verb: "develops severe depression", probability: 18 }, // 18%
+    { subject: "Your sibling", verb: "develops severe anxiety", probability: 22 }, // 22%
+    { subject: "Your sibling", verb: "develops PTSD", probability: 7 }, // 7%
+    
+    { subject: "You", verb: "attempt suicide", probability: 2 }, // 2%
+    { subject: "Your spouse", verb: "attempts suicide", probability: 2 }, // 2%
+    { subject: "Your child", verb: "attempts suicide", probability: 3 }, // 3% - sadly higher in youth
+    { subject: "Your parent", verb: "attempts suicide", probability: 1.5 }, // 1.5%
+    { subject: "Your sibling", verb: "attempts suicide", probability: 2.5 }, // 2.5%
+    
+    { subject: "You", verb: "are severely bullied", probability: 30 }, // 30% - common experience
     
     // Relationship-related
-    [
-      ['You'], ['get divorced']
-    ],
-    [
-      ['Your parents'], ['get divorced']
-    ],
-    [
-      ['You'], ['experience'], ['severe betrayal/infidelity']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['severe betrayal/infidelity']
-    ],
-    [
-      ['You'], ['are severely bullied']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is severely bullied']
-    ],
+    { subject: "You", verb: "get divorced", probability: 40 }, // 40% - approx divorce rate
+    { subject: "Your parents", verb: "get divorced", probability: 45 }, // 45% - slightly higher for parents
+    
+    { subject: "You", verb: "are cheated on by your partner", probability: 30 }, // 30% - infidelity rate
+    { subject: "Your spouse", verb: "cheats on you", probability: 30 }, // 30% - same as above, different phrasing
     
     // Financial/work-related
-    [
-      ['You'], ['experience financial ruin']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences financial ruin']
-    ],
-    [
-      ['You'], ['suddenly lose your job']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['suddenly loses their job']
-    ],
-    [
-      ['You'], ['become homeless']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['becomes homeless']
-    ],
+    { subject: "You", verb: "go bankrupt", probability: 8 }, // 8%
+    
+    { subject: "You", verb: "become homeless", probability: 2 }, // 2%
+    { subject: "Your spouse", verb: "becomes homeless", probability: 2 }, // 2%
+    { subject: "Your child", verb: "becomes homeless", probability: 3 }, // 3% - higher risk in young adults
+    { subject: "Your parent", verb: "becomes homeless", probability: 1.5 }, // 1.5%
+    { subject: "Your sibling", verb: "becomes homeless", probability: 2.5 }, // 2.5%
+    
+    { subject: "You", verb: "suddenly lose your job", probability: 50 }, // 50% - most people experience job loss
+    { subject: "Your spouse", verb: "suddenly loses their job", probability: 50 }, // 50%
+    { subject: "Your parent", verb: "suddenly loses their job", probability: 60 }, // 60% - longer work history, more chance
+    { subject: "Your sibling", verb: "suddenly loses their job", probability: 50 }, // 50%
     
     // Crime/safety-related
-    [
-      ['You'], ['are'], ['sexually assaulted', 'a victim of violent crime', 'imprisoned']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['is'], ['sexually assaulted', 'a victim of violent crime', 'imprisoned']
-    ],
-    [
-      ['You'], ['go missing']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['goes missing']
-    ],
-    [
-      ['You'], ['experience'], ['stalking or harassment']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['stalking or harassment']
-    ],
+    { subject: "You", verb: "are a victim of violent crime", probability: 15 }, // 15%
+    { subject: "Your spouse", verb: "is a victim of violent crime", probability: 15 }, // 15%
+    { subject: "Your child", verb: "is a victim of violent crime", probability: 12 }, // 12%
+    { subject: "Your parent", verb: "is a victim of violent crime", probability: 12 }, // 12%
+    { subject: "Your sibling", verb: "is a victim of violent crime", probability: 15 }, // 15%
+    
+    { subject: "You", verb: "go to jail/prison", probability: 3 }, // 3%
+    { subject: "Your spouse", verb: "goes to jail/prison", probability: 3 }, // 3%
+    { subject: "Your child", verb: "goes to jail/prison", probability: 5 }, // 5% - higher risk in youth
+    { subject: "Your parent", verb: "goes to jail/prison", probability: 2 }, // 2%
+    { subject: "Your sibling", verb: "goes to jail/prison", probability: 4 }, // 4%
+    
+    { subject: "You", verb: "go missing", probability: 0.2 }, // 0.2% - very rare
+    { subject: "Your spouse", verb: "goes missing", probability: 0.3 }, // 0.3%
+    { subject: "Your child", verb: "goes missing", probability: 2 }, // 2% - higher for children
+    { subject: "Your parent", verb: "goes missing", probability: 0.5 }, // 0.5%
+    { subject: "Your sibling", verb: "goes missing", probability: 0.8 }, // 0.8%
+    
+    { subject: "You", verb: "experience stalking or harassment", probability: 12 }, // 12%
+    { subject: "Your spouse", verb: "experiences stalking or harassment", probability: 12 }, // 12%
+    { subject: "Your child", verb: "experiences stalking or harassment", probability: 15 }, // 15% - higher for younger people
+    { subject: "Your parent", verb: "experiences stalking or harassment", probability: 8 }, // 8%
+    { subject: "Your sibling", verb: "experiences stalking or harassment", probability: 12 }, // 12%
     
     // Disaster-related
-    [
-      ['You'], ['experience'], ['a natural disaster', 'a serious accident']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences'], ['a natural disaster', 'a serious accident']
-    ],
-    [
-      ['You'], ['experience war']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experiences war']
-    ],
-    [
-      ['You'], ['face serious legal troubles']
-    ],
-    [
-      ['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['faces serious legal troubles']
-    ],
-    [
-      ['You'], ['are forced to leave your home']
-    ],
-    [
-      ['Your child', 'Your parent', 'Your sibling'], ['is forced to leave their home']
-    ],
+    { subject: "You", verb: "lose your home in a natural disaster", probability: 5 }, // 5%
+    
+    { subject: "You", verb: "are in a serious accident", probability: 25 }, // 25%
+    { subject: "Your spouse", verb: "is in a serious accident", probability: 25 }, // 25%
+    { subject: "Your child", verb: "is in a serious accident", probability: 20 }, // 20%
+    { subject: "Your parent", verb: "is in a serious accident", probability: 25 }, // 25%
+    { subject: "Your sibling", verb: "is in a serious accident", probability: 25 }, // 25%
+    
+    { subject: "You", verb: "face serious legal troubles", probability: 10 }, // 10%
+    { subject: "Your spouse", verb: "faces serious legal troubles", probability: 10 }, // 10%
+    { subject: "Your child", verb: "faces serious legal troubles", probability: 12 }, // 12% - higher risk in youth
+    { subject: "Your parent", verb: "faces serious legal troubles", probability: 8 }, // 8%
+    { subject: "Your sibling", verb: "faces serious legal troubles", probability: 10 }, // 10%
+    
+    { subject: "You", verb: "are forced to leave your home", probability: 7 }, // 7%
+    { subject: "Your child", verb: "is forced to leave their home", probability: 10 }, // 10% - more common with youth
+    { subject: "Your parent", verb: "is forced to leave their home", probability: 12 }, // 12% - more common with elderly
+    { subject: "Your sibling", verb: "is forced to leave their home", probability: 9 }, // 9%
     
     // Other specific cases
-    [
-      ['You'], ['experience a miscarriage']
-    ],
-    [
-      ['Your child'], ['experiences a miscarriage']
-    ],
-    [
-      ['Your pet'], ['dies', 'becomes seriously ill', 'becomes seriously injured']
-    ],
+    { subject: "You", verb: "experience a miscarriage", probability: 20 }, // 20% - common among women
+    { subject: "Your child", verb: "experiences a miscarriage", probability: 20 }, // 20% - also common
+    
+    { subject: "Your pet", verb: "dies", probability: 80 }, // 80% - most pet owners experience pet death
+    { subject: "Your pet", verb: "becomes seriously ill", probability: 60 }, // 60%
+    { subject: "Your pet", verb: "becomes seriously injured", probability: 40 }, // 40%
   ];
 
-  // Generate all possible permutations from a template
-  const generatePermutations = (template: any[]): string[] => {
-    // Start with an array containing an empty string
-    let results: string[] = [''];
-    
-    // For each part of the template
-    for (const part of template) {
-      // Create a new set of results by appending each option to each existing result
-      const newResults: string[] = [];
-      
-      for (const existingResult of results) {
-        for (const option of part) {
-          // Add a space if this isn't the first part
-          const prefix = existingResult ? existingResult + ' ' : '';
-          newResults.push(prefix + option);
-        }
-      }
-      
-      // Replace the old results with the new ones
-      results = newResults;
-    }
-    
-    return results;
-  };
+  // Sort by probability (highest to lowest)
+  misfortunes.sort((a, b) => b.probability - a.probability);
 
-  // Generate all permutations from all templates
-  const allPermutations = templates.flatMap(template => generatePermutations(template));
+  // Generate the full text for each misfortune
+  const formattedMisfortunes = misfortunes.map(m => {
+    return {
+      text: m.object 
+        ? `${m.subject} ${m.verb} ${m.object}`
+        : `${m.subject} ${m.verb}`,
+      probability: m.probability
+    };
+  });
 
   return (
-    <div className="w-full max-w-2xl mx-auto p-8 rounded-lg bg-card">
+    <div className="w-full max-w-3xl mx-auto p-8 rounded-lg bg-card">
       <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Existence Bingo</h2>
-      <p className="mb-6 text-center text-sm text-muted-foreground">All possible misfortunes ({allPermutations.length} items)</p>
+      <p className="mb-6 text-center text-sm text-muted-foreground">
+        All possible misfortunes ({formattedMisfortunes.length} items), sorted by probability
+      </p>
       <ol className="list-decimal pl-6 space-y-1 text-foreground">
-        {allPermutations.map((item, index) => (
-          <li key={index}>{item}</li>
+        {formattedMisfortunes.map((item, index) => (
+          <li key={index} className="flex justify-between">
+            <span>{item.text}</span>
+            <span className="text-muted-foreground ml-4 text-sm tabular-nums">{item.probability}%</span>
+          </li>
         ))}
       </ol>
     </div>
