@@ -13,7 +13,7 @@ export function ExistenceBingoList() {
     [['You', 'Your spouse', 'Your close family member'], ['develop a'], ['gambling addiction', 'alcohol addiction', 'drug addiction']],
     
     // Mental health-related
-    [['You', 'Your spouse', 'Your close family member'], ['develop'], ['severe mental health problems', 'chronic pain', 'dementia/cognitive decline']],
+    [['You', 'Your spouse', 'Your close family member'], ['develop'], ['severe mental health problems', 'chronic illness', 'dementia/cognitive decline']],
     
     // Relationship-related
     [['You', 'Your parents'], ['get divorced']],
@@ -35,7 +35,7 @@ export function ExistenceBingoList() {
     [['You', 'Your spouse', 'Your close family member'], ['are forced to leave your home']],
     
     // Other specific cases
-    [['Your close family member'], ['experience miscarriage']],
+    [['You'], ['experience miscarriage']],
     [['Your pet'], ['dies']],
   ];
 
