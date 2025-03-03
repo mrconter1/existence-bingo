@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Life's Bingo",
-  description: "An artistic reflection on life's unpredictability",
+  title: "Life Bingo",
+  description: "An artistic reflection on the unpredictability of existence",
 };
 
 export default function RootLayout({

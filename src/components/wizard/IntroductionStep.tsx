@@ -11,7 +11,7 @@ export function IntroductionStep({ onNext }: IntroductionStepProps) {
   return (
     <div className="flex flex-col items-center text-center">
       <div className="max-w-md mx-auto">
-        <h3 className="text-lg font-bold mb-3">Life's Bingo</h3>
+        <h3 className="text-lg font-bold mb-3 font-heading">Life&apos;s Bingo</h3>
         
         <p className="text-sm mb-5">
           A personalized bingo board of potential life misfortunes.

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Misfortune, baseMisfortunes } from "@/data/misfortunes";
 import { SeededRandom } from "@/utils/random";
@@ -287,7 +286,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
             </div>
           </div>
           <p className="text-xs text-muted-foreground">
-            Mark off events you've experienced
+            Mark off events you&apos;ve experienced
           </p>
         </div>
         
