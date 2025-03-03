@@ -6,6 +6,7 @@ import { Card } from "@/components/ui/card";
 import { Misfortune, baseMisfortunes } from "@/data/misfortunes";
 import { SeededRandom } from "@/utils/random";
 import Cookies from "js-cookie";
+import { Settings } from "lucide-react";
 
 // Cookie name for storing bingo state
 const BINGO_STATE_COOKIE_NAME = "existence-bingo-state";
@@ -21,9 +22,10 @@ interface ConfigData {
 interface BingoCardStepProps {
   configData: ConfigData;
   onBack: () => void;
+  onOpenSettings: () => void;
 }
 
-export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
+export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardStepProps) {
   const [bingoItems, setBingoItems] = useState<Misfortune[]>([]);
   const [hasBingo, setHasBingo] = useState(false);
   const [expectedEvents, setExpectedEvents] = useState(0);
@@ -269,49 +271,56 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
   };
 
   return (
-    <div className="flex flex-col items-center w-full">
-      <div className="w-full max-w-md mx-auto text-center mb-3">
-        <div className="flex justify-center items-center mb-2">
-          <h3 className="text-lg font-bold">Life Events Bingo</h3>
-          {hasBingo && (
-            <div className="bg-yellow-100 dark:bg-yellow-900 px-3 py-1 rounded text-xs font-bold animate-pulse ml-3">
-              BINGO!
+    <div className="flex flex-col h-full w-full justify-center">
+      <div className="flex flex-col items-center w-full">
+        <div className="w-full flex flex-col space-y-1 mb-3">
+          <div className="flex justify-between items-center">
+            <h3 className="text-lg font-semibold">Life Events Bingo</h3>
+            <div className="flex items-center gap-2">
+              {hasBingo && (
+                <div className="bg-primary/20 border border-primary px-2 py-0.5 rounded-full text-xs font-medium animate-pulse">
+                  BINGO!
+                </div>
+              )}
+              <Settings 
+                className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                onClick={onOpenSettings}
+              />
             </div>
-          )}
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Mark off events you've experienced
+          </p>
         </div>
         
-        <p className="text-sm text-muted-foreground mb-3">
-          Mark off events you've experienced. Board is unique to your personal number.
-        </p>
-      </div>
-      
-      {/* Square bingo board - centered and properly sized */}
-      <div className="w-full max-w-md aspect-square mx-auto mb-4">
-        <div className="grid grid-cols-4 grid-rows-4 gap-2 h-full">
-          {bingoItems.map((item, index) => (
-            <Card 
-              key={index} 
-              className={`p-1.5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
-                ${item.checked 
-                  ? "bg-primary/20 border-primary" 
-                  : "hover:bg-accent"}`}
-              onClick={() => toggleChecked(index)}
-            >
-              <span className={`text-xs leading-tight ${item.checked ? "line-through opacity-70" : ""}`}>
-                {item.text}
-              </span>
-            </Card>
-          ))}
+        {/* Bingo board */}
+        <div className="w-full aspect-square mb-3">
+          <div className="grid grid-cols-4 grid-rows-4 gap-1 h-full">
+            {bingoItems.map((item, index) => (
+              <Card 
+                key={index} 
+                className={`p-1 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
+                  ${item.checked 
+                    ? "bg-primary/20 border-primary" 
+                    : "hover:bg-accent"}`}
+                onClick={() => toggleChecked(index)}
+              >
+                <span className={`text-[0.65rem] leading-tight ${item.checked ? "line-through opacity-70" : ""}`}>
+                  {item.text}
+                </span>
+              </Card>
+            ))}
+          </div>
         </div>
-      </div>
-      
-      <div className="w-full max-w-md flex justify-between mt-2">
-        <Button onClick={onBack} variant="outline" size="sm">
-          Back
-        </Button>
-        <Button onClick={resetBingoBoard} variant="outline" size="sm">
-          Reset Board
-        </Button>
+        
+        <div className="w-full flex justify-between">
+          <Button onClick={onBack} variant="outline" size="sm" className="h-8 text-xs px-3">
+            Back
+          </Button>
+          <Button onClick={resetBingoBoard} variant="outline" size="sm" className="h-8 text-xs px-3">
+            Reset Board
+          </Button>
+        </div>
       </div>
     </div>
   );
