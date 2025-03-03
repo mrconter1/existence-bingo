@@ -1,6 +1,6 @@
 "use client";
 
-import { ChangeEvent } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -34,6 +34,8 @@ export function ConfigurationForm({
   compact = false,
   showPrivacyNote = false
 }: ConfigurationFormProps) {
+  const [activeTooltip, setActiveTooltip] = useState<string | null>(null);
+  
   const textSize = compact 
     ? "text-xs" 
     : "text-sm md:text-base";
@@ -46,6 +48,14 @@ export function ConfigurationForm({
   const buttonSize = compact 
     ? "h-7 text-xs" 
     : "md:h-10 md:text-base";
+    
+  const toggleTooltip = (id: string) => {
+    if (activeTooltip === id) {
+      setActiveTooltip(null);
+    } else {
+      setActiveTooltip(id);
+    }
+  };
   
   return (
     <div className="w-full">
@@ -54,8 +64,14 @@ export function ConfigurationForm({
           <div className="flex items-center gap-1 md:gap-2">
             <Label htmlFor="spouse-toggle" className={`${textSize} font-medium`}>Spouse/partner</Label>
             <div className="relative group">
-              <Info className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-help" />
-              <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+              <Info 
+                className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
+                onClick={() => toggleTooltip('spouse')}
+              />
+              <div 
+                className={`absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md transition-opacity z-10 
+                  ${activeTooltip === 'spouse' ? 'opacity-100 pointer-events-auto' : 'opacity-0 group-hover:opacity-100 pointer-events-none'}`}
+              >
                 You have or are planning to have a spouse/partner
               </div>
             </div>
@@ -72,8 +88,14 @@ export function ConfigurationForm({
           <div className="flex items-center gap-1 md:gap-2">
             <Label htmlFor="pet-toggle" className={`${textSize} font-medium`}>Pets</Label>
             <div className="relative group">
-              <Info className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-help" />
-              <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+              <Info 
+                className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
+                onClick={() => toggleTooltip('pet')}
+              />
+              <div 
+                className={`absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md transition-opacity z-10 
+                  ${activeTooltip === 'pet' ? 'opacity-100 pointer-events-auto' : 'opacity-0 group-hover:opacity-100 pointer-events-none'}`}
+              >
                 You have or are planning to have pets
               </div>
             </div>
@@ -93,8 +115,14 @@ export function ConfigurationForm({
             <div className="flex items-center gap-1 md:gap-2">
               <Label htmlFor="child-slider" className={`${textSize} font-medium`}>Children: {configData.childCount}</Label>
               <div className="relative group">
-                <Info className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-help" />
-                <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                <Info 
+                  className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
+                  onClick={() => toggleTooltip('child')}
+                />
+                <div 
+                  className={`absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md transition-opacity z-10 
+                    ${activeTooltip === 'child' ? 'opacity-100 pointer-events-auto' : 'opacity-0 group-hover:opacity-100 pointer-events-none'}`}
+                >
                   You have or are planning to have this many children
                 </div>
               </div>
@@ -116,8 +144,14 @@ export function ConfigurationForm({
             <div className="flex items-center gap-1 md:gap-2">
               <Label htmlFor="sibling-slider" className={`${textSize} font-medium`}>Siblings: {configData.siblingCount}</Label>
               <div className="relative group">
-                <Info className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-help" />
-                <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                <Info 
+                  className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
+                  onClick={() => toggleTooltip('sibling')}
+                />
+                <div 
+                  className={`absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md transition-opacity z-10 
+                    ${activeTooltip === 'sibling' ? 'opacity-100 pointer-events-auto' : 'opacity-0 group-hover:opacity-100 pointer-events-none'}`}
+                >
                   You have this many siblings
                 </div>
               </div>
@@ -139,8 +173,14 @@ export function ConfigurationForm({
         <div className="flex items-center gap-1 md:gap-2">
           <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Personal Identifier</Label>
           <div className="relative group">
-            <Info className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-help" />
-            <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+            <Info 
+              className="h-3.5 w-3.5 md:h-4 md:w-4 text-muted-foreground cursor-pointer" 
+              onClick={() => toggleTooltip('seed')}
+            />
+            <div 
+              className={`absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md transition-opacity z-10 
+                ${activeTooltip === 'seed' ? 'opacity-100 pointer-events-auto' : 'opacity-0 group-hover:opacity-100 pointer-events-none'}`}
+            >
               Enter any personal identifier (number, name, etc.) to generate your unique board. Using the same identifier will always create the same board.
             </div>
           </div>
