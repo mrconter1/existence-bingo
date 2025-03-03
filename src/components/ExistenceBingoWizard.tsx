@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 import { Settings, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { ConfigurationForm } from "@/components/ConfigurationForm";
 
 // Cookie name for storing configuration
 const CONFIG_COOKIE_NAME = "existence-bingo-config";
@@ -127,16 +128,27 @@ export function ExistenceBingoWizard() {
           <DialogHeader>
             <DialogTitle>Settings</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4 py-4">
-            <Button 
-              onClick={goToConfig} 
-              variant="outline" 
-              className="w-full justify-start"
-            >
-              <Settings className="mr-2 h-4 w-4" />
-              Edit Configuration
-            </Button>
+          
+          {/* Configuration Options */}
+          <div className="py-4">
+            <h3 className="text-sm font-medium mb-3">Personal Configuration</h3>
             
+            <ConfigurationForm 
+              configData={configData}
+              onConfigChange={handleConfigChange}
+              onSubmit={() => {
+                setShowSettings(false);
+                // Regenerate the board with new config
+                setCurrentStep(2);
+              }}
+              submitButtonText="Apply Changes"
+              compact={true}
+            />
+          </div>
+          
+          <div className="h-px bg-border my-2"></div>
+          
+          <div className="py-2">
             <Button 
               onClick={deleteAllData} 
               variant="destructive" 
@@ -146,6 +158,7 @@ export function ExistenceBingoWizard() {
               Delete My Data
             </Button>
           </div>
+          
           <DialogFooter>
             <Button 
               variant="secondary" 
