@@ -128,7 +128,10 @@ export function ExistenceBingoList() {
     
     // Other specific cases
     [
-      ['You', 'Your child'], ['experience a miscarriage']
+      ['You'], ['experience a miscarriage']
+    ],
+    [
+      ['Your child'], ['experiences a miscarriage']
     ],
     [
       ['Your pet'], ['dies']
