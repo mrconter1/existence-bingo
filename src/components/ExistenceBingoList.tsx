@@ -1,5 +1,10 @@
 "use client"
 
+import { useState } from 'react';
+import { Slider } from "@/components/ui/slider";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+
 interface Misfortune {
   subject: string;
   verb: string;
@@ -8,9 +13,17 @@ interface Misfortune {
 }
 
 export function ExistenceBingoList() {
-  // Define misfortunes with specific probabilities for each subject-event combination
-  const misfortunes: Misfortune[] = [
+  // Configuration state for family members
+  const [hasSpouse, setHasSpouse] = useState(true);
+  const [childCount, setChildCount] = useState(1);
+  const [siblingCount, setSiblingCount] = useState(1);
+  const [hasParents, setHasParents] = useState(true);
+  const [hasPet, setHasPet] = useState(true);
+  
+  // Base misfortunes with probabilities for a single family member
+  const baseMisfortunes: Misfortune[] = [
     // Health-related
+    { subject: "You", verb: "die unexpectedly", probability: 0.1 }, // 0.1% - sudden death is rare for young/middle-aged person
     { subject: "Your spouse", verb: "dies unexpectedly", probability: 3 }, // 3%
     { subject: "Your child", verb: "dies unexpectedly", probability: 1.5 }, // 1.5% - sadly, some children die before parents
     { subject: "Your parent", verb: "dies unexpectedly", probability: 8 }, // 8% - more common as parents age
@@ -52,18 +65,23 @@ export function ExistenceBingoList() {
     // Mental health-related
     { subject: "You", verb: "develop severe depression", probability: 20 }, // 20%
     { subject: "You", verb: "develop severe anxiety", probability: 25 }, // 25%
+    { subject: "You", verb: "develop PTSD", probability: 7 }, // 7%
     
     { subject: "Your spouse", verb: "develops severe depression", probability: 20 }, // 20%
     { subject: "Your spouse", verb: "develops severe anxiety", probability: 25 }, // 25%
+    { subject: "Your spouse", verb: "develops PTSD", probability: 7 }, // 7%
     
     { subject: "Your child", verb: "develops severe depression", probability: 15 }, // 15%
     { subject: "Your child", verb: "develops severe anxiety", probability: 18 }, // 18%
+    { subject: "Your child", verb: "develops PTSD", probability: 5 }, // 5%
     
     { subject: "Your parent", verb: "develops severe depression", probability: 15 }, // 15%
     { subject: "Your parent", verb: "develops severe anxiety", probability: 20 }, // 20%
+    { subject: "Your parent", verb: "develops PTSD", probability: 6 }, // 6%
     
     { subject: "Your sibling", verb: "develops severe depression", probability: 18 }, // 18%
     { subject: "Your sibling", verb: "develops severe anxiety", probability: 22 }, // 22%
+    { subject: "Your sibling", verb: "develops PTSD", probability: 7 }, // 7%
     
     { subject: "You", verb: "commits suicide", probability: 0.5 }, // 0.5% - lifetime risk of completed suicide
     { subject: "Your spouse", verb: "commits suicide", probability: 0.5 }, // 0.5%
@@ -134,15 +152,9 @@ export function ExistenceBingoList() {
     { subject: "Your parent", verb: "goes missing", probability: 0.5 }, // 0.5%
     { subject: "Your sibling", verb: "goes missing", probability: 0.8 }, // 0.8%
     
-    { subject: "You", verb: "experience stalking or harassment", probability: 12 }, // 12%
-    { subject: "Your spouse", verb: "experiences stalking or harassment", probability: 12 }, // 12%
-    { subject: "Your child", verb: "experiences stalking or harassment", probability: 15 }, // 15% - higher for younger people
-    { subject: "Your parent", verb: "experiences stalking or harassment", probability: 8 }, // 8%
-    { subject: "Your sibling", verb: "experiences stalking or harassment", probability: 12 }, // 12%
-    
     // Disaster-related
-    { subject: "You", verb: "are severly effected by a natural disaster", probability: 5 }, // 5%
-
+    { subject: "You", verb: "lose your home in a natural disaster", probability: 5 }, // 5%
+    
     { subject: "You", verb: "are in a serious accident", probability: 25 }, // 25%
     { subject: "Your spouse", verb: "is in a serious accident", probability: 25 }, // 25%
     { subject: "Your child", verb: "is in a serious accident", probability: 20 }, // 20%
@@ -168,31 +180,130 @@ export function ExistenceBingoList() {
     { subject: "Your pet", verb: "becomes seriously ill", probability: 60 }, // 60%
     { subject: "Your pet", verb: "becomes seriously injured", probability: 40 }, // 40%
   ];
-
-  // Sort by probability (highest to lowest)
-  misfortunes.sort((a, b) => b.probability - a.probability);
-
-  // Generate the full text for each misfortune
-  const formattedMisfortunes = misfortunes.map(m => {
-    return {
-      text: m.object 
-        ? `${m.subject} ${m.verb} ${m.object}`
-        : `${m.subject} ${m.verb}`,
-      probability: m.probability
-    };
-  });
+  
+  // Calculate adjusted probability for multiple family members
+  // P(at least one experiences it) = 1 - (1-p)^n
+  const calculateAdjustedProbability = (baseProbability: number, count: number): number => {
+    return (1 - Math.pow(1 - baseProbability / 100, count)) * 100;
+  };
+  
+  // Filter and adjust misfortunes based on family configuration
+  const getAdjustedMisfortunes = (): {text: string, probability: number}[] => {
+    const result: {text: string, probability: number}[] = [];
+    
+    baseMisfortunes.forEach(misfortune => {
+      // Skip misfortunes that don't apply to user's family
+      if (!hasSpouse && misfortune.subject === "Your spouse") return;
+      if (childCount === 0 && misfortune.subject === "Your child") return;
+      if (siblingCount === 0 && misfortune.subject === "Your sibling") return;
+      if (!hasParents && (misfortune.subject === "Your parent" || misfortune.subject === "Your parents")) return;
+      if (!hasPet && misfortune.subject === "Your pet") return;
+      
+      // Calculate adjusted probability for multiple family members
+      let adjustedProbability = misfortune.probability;
+      
+      if (misfortune.subject === "Your child" && childCount > 1) {
+        adjustedProbability = calculateAdjustedProbability(misfortune.probability, childCount);
+      } else if (misfortune.subject === "Your sibling" && siblingCount > 1) {
+        adjustedProbability = calculateAdjustedProbability(misfortune.probability, siblingCount);
+      } else if (misfortune.subject === "Your parent" && hasParents) {
+        // Assuming 2 parents if hasParents is true
+        adjustedProbability = calculateAdjustedProbability(misfortune.probability, 2);
+      }
+      
+      // Format text
+      const text = misfortune.object 
+        ? `${misfortune.subject} ${misfortune.verb} ${misfortune.object}`
+        : `${misfortune.subject} ${misfortune.verb}`;
+      
+      result.push({
+        text,
+        probability: adjustedProbability
+      });
+    });
+    
+    // Sort by probability (highest to lowest)
+    return result.sort((a, b) => b.probability - a.probability);
+  };
+  
+  const formattedMisfortunes = getAdjustedMisfortunes();
 
   return (
     <div className="w-full max-w-3xl mx-auto p-8 rounded-lg bg-card">
       <h2 className="text-2xl font-bold mb-6 text-center text-foreground">Existence Bingo</h2>
+      
+      <div className="mb-8 p-4 border rounded-lg">
+        <h3 className="text-lg font-semibold mb-4">Customize Your Family</h3>
+        
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <Label htmlFor="spouse-toggle" className="cursor-pointer">Do you have a spouse/partner?</Label>
+            <Switch 
+              id="spouse-toggle" 
+              checked={hasSpouse} 
+              onCheckedChange={setHasSpouse} 
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label htmlFor="child-slider">Number of children: {childCount}</Label>
+            </div>
+            <Slider 
+              id="child-slider"
+              min={0} 
+              max={5} 
+              step={1} 
+              value={[childCount]} 
+              onValueChange={(value: number[]) => setChildCount(value[0])} 
+              className="py-4"
+            />
+          </div>
+          
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <Label htmlFor="sibling-slider">Number of siblings: {siblingCount}</Label>
+            </div>
+            <Slider 
+              id="sibling-slider"
+              min={0} 
+              max={5} 
+              step={1} 
+              value={[siblingCount]} 
+              onValueChange={(value: number[]) => setSiblingCount(value[0])} 
+              className="py-4"
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <Label htmlFor="parents-toggle" className="cursor-pointer">Do you have living parents?</Label>
+            <Switch 
+              id="parents-toggle" 
+              checked={hasParents} 
+              onCheckedChange={setHasParents} 
+            />
+          </div>
+          
+          <div className="flex items-center justify-between">
+            <Label htmlFor="pet-toggle" className="cursor-pointer">Do you have pets?</Label>
+            <Switch 
+              id="pet-toggle" 
+              checked={hasPet} 
+              onCheckedChange={setHasPet} 
+            />
+          </div>
+        </div>
+      </div>
+      
       <p className="mb-6 text-center text-sm text-muted-foreground">
-        All possible misfortunes ({formattedMisfortunes.length} items), sorted by probability
+        Personalized misfortunes based on your family ({formattedMisfortunes.length} items), sorted by probability
       </p>
+      
       <ol className="list-decimal pl-6 space-y-1 text-foreground">
         {formattedMisfortunes.map((item, index) => (
           <li key={index} className="flex justify-between">
             <span>{item.text}</span>
-            <span className="text-muted-foreground ml-4 text-sm tabular-nums">{item.probability}%</span>
+            <span className="text-muted-foreground ml-4 text-sm tabular-nums">{item.probability.toFixed(1)}%</span>
           </li>
         ))}
       </ol>
