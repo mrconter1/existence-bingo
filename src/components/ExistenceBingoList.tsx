@@ -49,14 +49,23 @@ export function ExistenceBingoList() {
     // Addiction-related
     { subject: "You", verb: "developed a gambling addiction", probability: 2 }, // 2%
     { subject: "You", verb: "developed an alcohol addiction", probability: 5 }, // 5%
+    { subject: "You", verb: "developed a drug addiction", probability: 3 }, // 3%
+    
     { subject: "Your spouse", verb: "developed a gambling addiction", probability: 2 }, // 2%
     { subject: "Your spouse", verb: "developed an alcohol addiction", probability: 5 }, // 5%
+    { subject: "Your spouse", verb: "developed a drug addiction", probability: 3 }, // 3%
+    
     { subject: "Your child", verb: "developed a gambling addiction", probability: 1 }, // 1%
     { subject: "Your child", verb: "developed an alcohol addiction", probability: 4 }, // 4%
+    { subject: "Your child", verb: "developed a drug addiction", probability: 6 }, // 6% - more common in youth
+    
     { subject: "Your parent", verb: "developed a gambling addiction", probability: 2 }, // 2%
     { subject: "Your parent", verb: "developed an alcohol addiction", probability: 7 }, // 7%
+    { subject: "Your parent", verb: "developed a drug addiction", probability: 2 }, // 2%
+    
     { subject: "Your sibling", verb: "developed a gambling addiction", probability: 2 }, // 2%
     { subject: "Your sibling", verb: "developed an alcohol addiction", probability: 5 }, // 5%
+    { subject: "Your sibling", verb: "developed a drug addiction", probability: 5 }, // 5%
     
     // Mental health-related
     { subject: "You", verb: "struggled with severe depression", probability: 10 }, // 10%
