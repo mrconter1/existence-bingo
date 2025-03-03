@@ -11,6 +11,12 @@ export const baseMisfortunes: Misfortune[] = [
   { text: "You've had a parent die unexpectedly", probability: 8 },
   { text: "You've had a sibling die unexpectedly", probability: 4 },
   
+  // Suicide-related
+  { text: "You've had a spouse die by suicide", probability: 2 },
+  { text: "You've had a child die by suicide", probability: 1.5 },
+  { text: "You've had a parent die by suicide", probability: 3 },
+  { text: "You've had a sibling die by suicide", probability: 2.5 },
+  
   { text: "You've received a terminal diagnosis", probability: 20 },
   { text: "You've had a spouse that has received a terminal diagnosis", probability: 22 },
   { text: "You've had a child that has received a terminal diagnosis", probability: 5 },
