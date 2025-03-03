@@ -6,7 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, Info } from "lucide-react";
 import { Card } from "@/components/ui/card";
 
 export interface ConfigData {
@@ -94,13 +94,21 @@ export function ConfigurationForm({
       </div>
       
       <div className={`space-y-1 ${marginBottom}`}>
-        <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Personal Number</Label>
+        <div className="flex items-center gap-1">
+          <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Personal Identifier</Label>
+          <div className="relative group">
+            <Info className="h-3.5 w-3.5 text-muted-foreground cursor-help" />
+            <div className="absolute left-0 top-full mt-1 w-64 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+              Enter any personal identifier (number, name, etc.) to generate your unique board. Using the same identifier will always create the same board.
+            </div>
+          </div>
+        </div>
         <Input 
           id="seed-input"
           type="text" 
           value={configData.seedInput}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onConfigChange({ seedInput: e.target.value })} 
-          placeholder="Enter personal number" 
+          placeholder="Enter personal number, name, or any ID" 
           className={compact ? "h-7 text-xs" : ""}
         />
       </div>
