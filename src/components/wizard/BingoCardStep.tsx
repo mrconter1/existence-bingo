@@ -263,13 +263,6 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
     }
   };
 
-  // Reset the bingo board (clear all checked items)
-  const resetBingoBoard = () => {
-    const newItems = bingoItems.map(item => ({ ...item, checked: false }));
-    setBingoItems(newItems);
-    setHasBingo(false);
-  };
-
   return (
     <div className="flex flex-col h-full w-full justify-center">
       <div className="flex flex-col items-center w-full">
@@ -282,10 +275,15 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
                   BINGO!
                 </div>
               )}
-              <Settings 
-                className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-                onClick={onOpenSettings}
-              />
+              <div className="relative group">
+                <Settings 
+                  className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                  onClick={onOpenSettings}
+                />
+                <div className="absolute right-0 top-full mt-1 w-32 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                  Settings and configuration
+                </div>
+              </div>
             </div>
           </div>
           <p className="text-xs text-muted-foreground">
@@ -294,7 +292,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
         </div>
         
         {/* Bingo board */}
-        <div className="w-full aspect-square mb-3">
+        <div className="w-full aspect-square">
           <div className="grid grid-cols-4 grid-rows-4 gap-1 h-full">
             {bingoItems.map((item, index) => (
               <Card 
@@ -311,15 +309,6 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
               </Card>
             ))}
           </div>
-        </div>
-        
-        <div className="w-full flex justify-between">
-          <Button onClick={onBack} variant="outline" size="sm" className="h-8 text-xs px-3">
-            Back
-          </Button>
-          <Button onClick={resetBingoBoard} variant="outline" size="sm" className="h-8 text-xs px-3">
-            Reset Board
-          </Button>
         </div>
       </div>
     </div>
