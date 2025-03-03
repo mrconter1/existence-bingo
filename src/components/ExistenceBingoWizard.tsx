@@ -5,9 +5,13 @@ import { IntroductionStep } from "./wizard/IntroductionStep";
 import { ConfigurationStep } from "./wizard/ConfigurationStep";
 import { BingoCardStep } from "./wizard/BingoCardStep";
 import Cookies from "js-cookie";
+import { Settings, X } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 
 // Cookie name for storing configuration
 const CONFIG_COOKIE_NAME = "existence-bingo-config";
+const BINGO_STATE_PREFIX = "existence-bingo-state";
 
 // Default configuration
 const defaultConfig = {
@@ -22,6 +26,7 @@ export function ExistenceBingoWizard() {
   const [currentStep, setCurrentStep] = useState(0);
   const [configData, setConfigData] = useState(defaultConfig);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Load configuration from cookies on initial render
   useEffect(() => {
@@ -31,6 +36,11 @@ export function ExistenceBingoWizard() {
       try {
         const parsedConfig = JSON.parse(savedConfig);
         setConfigData(parsedConfig);
+        
+        // If we have a valid seed, go directly to the bingo board
+        if (parsedConfig.seedInput && parsedConfig.seedInput.trim() !== "") {
+          setCurrentStep(2);
+        }
       } catch (error) {
         console.error("Error parsing saved configuration:", error);
         // If there's an error parsing, use default config
@@ -63,23 +73,56 @@ export function ExistenceBingoWizard() {
     setCurrentStep(prev => Math.max(prev - 1, 0));
   };
 
+  const goToConfig = () => {
+    setCurrentStep(1);
+    setShowSettings(false);
+  };
+
+  const deleteAllData = () => {
+    // Delete configuration cookie
+    Cookies.remove(CONFIG_COOKIE_NAME);
+    
+    // Delete all bingo state cookies
+    Object.keys(Cookies.get()).forEach(cookieName => {
+      if (cookieName.startsWith(BINGO_STATE_PREFIX)) {
+        Cookies.remove(cookieName);
+      }
+    });
+    
+    // Reset to default state
+    setConfigData(defaultConfig);
+    setCurrentStep(0);
+    setShowSettings(false);
+  };
+
   return (
     <div className="w-full max-w-lg mx-auto p-4 rounded-lg bg-card flex flex-col h-full">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-foreground">Existence Bingo</h2>
         
-        {/* Step indicators */}
-        <div className="flex items-center gap-2">
-          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-            1
+        {currentStep === 2 ? (
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={() => setShowSettings(true)}
+            className="rounded-full"
+            aria-label="Settings"
+          >
+            <Settings className="h-5 w-5" />
+          </Button>
+        ) : (
+          <div className="flex items-center gap-2">
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+              1
+            </div>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+              2
+            </div>
+            <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+              3
+            </div>
           </div>
-          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-            2
-          </div>
-          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
-            3
-          </div>
-        </div>
+        )}
       </div>
 
       {/* Content container with centered content */}
@@ -104,6 +147,42 @@ export function ExistenceBingoWizard() {
           />
         )}
       </div>
+
+      {/* Settings Dialog */}
+      <Dialog open={showSettings} onOpenChange={setShowSettings}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Settings</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <Button 
+              onClick={goToConfig} 
+              variant="outline" 
+              className="w-full justify-start"
+            >
+              <Settings className="mr-2 h-4 w-4" />
+              Edit Configuration
+            </Button>
+            
+            <Button 
+              onClick={deleteAllData} 
+              variant="destructive" 
+              className="w-full justify-start"
+            >
+              <X className="mr-2 h-4 w-4" />
+              Delete My Data
+            </Button>
+          </div>
+          <DialogFooter>
+            <Button 
+              variant="secondary" 
+              onClick={() => setShowSettings(false)}
+            >
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 } 
