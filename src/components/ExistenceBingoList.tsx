@@ -90,17 +90,17 @@ export function ExistenceBingoList() {
     { text: "You've had a sibling lose their job unexpectedly", probability: 25 }, // 25%
     
     // Crime/safety-related
-    { text: "You've been the victim of a serious crime", probability: 20 }, // 20%
-    { text: "You've had a spouse that has been the victim of a serious crime", probability: 20 }, // 20%
-    { text: "You've had a child that has been the victim of a serious crime", probability: 15 }, // 15%
-    { text: "You've had a parent that has been the victim of a serious crime", probability: 15 }, // 15%
-    { text: "You've had a sibling that has been the victim of a serious crime", probability: 18 }, // 18%
+    { text: "You've been a victim of a serious crime", probability: 20 }, // 20%
+    { text: "You've had a spouse that has been a victim of a serious crime", probability: 20 }, // 20%
+    { text: "You've had a child that has been a victim of a serious crime", probability: 15 }, // 15%
+    { text: "You've had a parent that has been a victim of a serious crime", probability: 15 }, // 15%
+    { text: "You've had a sibling that has been a victim of a serious crime", probability: 18 }, // 18%
     
-    { text: "You've been the victim of sexual assault", probability: 10 }, // 10%
-    { text: "You've had a spouse that has been the victim of sexual assault", probability: 10 }, // 10%
-    { text: "You've had a child that has been the victim of sexual assault", probability: 8 }, // 8%
-    { text: "You've had a parent that has been the victim of sexual assault", probability: 8 }, // 8%
-    { text: "You've had a sibling that has been the victim of sexual assault", probability: 9 }, // 9%
+    { text: "You've been a victim of sexual assault", probability: 10 }, // 10%
+    { text: "You've had a spouse that has been a victim of sexual assault", probability: 10 }, // 10%
+    { text: "You've had a child that has been a victim of sexual assault", probability: 8 }, // 8%
+    { text: "You've had a parent that has been a victim of sexual assault", probability: 8 }, // 8%
+    { text: "You've had a sibling that has been a victim of sexual assault", probability: 9 }, // 9%
     
     { text: "You've had a spouse go missing", probability: 0.5 }, // 0.5%
     { text: "You've had a child go missing", probability: 0.8 }, // 0.8%
@@ -113,11 +113,11 @@ export function ExistenceBingoList() {
     { text: "You've had a parent that has experienced stalking or harassment", probability: 4 }, // 4%
     { text: "You've had a sibling that has experienced stalking or harassment", probability: 6 }, // 6%
     
-    { text: "You've been the victim of identity theft", probability: 10 }, // 10%
-    { text: "You've had a spouse that has been the victim of identity theft", probability: 10 }, // 10%
-    { text: "You've had a child that has been the victim of identity theft", probability: 8 }, // 8%
-    { text: "You've had a parent that has been the victim of identity theft", probability: 12 }, // 12%
-    { text: "You've had a sibling that has been the victim of identity theft", probability: 9 }, // 9%
+    { text: "You've been a victim of identity theft", probability: 10 }, // 10%
+    { text: "You've had a spouse that has been a victim of identity theft", probability: 10 }, // 10%
+    { text: "You've had a child that has been a victim of identity theft", probability: 8 }, // 8%
+    { text: "You've had a parent that has been a victim of identity theft", probability: 12 }, // 12%
+    { text: "You've had a sibling that has been a victim of identity theft", probability: 9 }, // 9%
     
     // Disaster-related
     { text: "You've had your home severely affected by a natural disaster", probability: 3 }, // 3%
