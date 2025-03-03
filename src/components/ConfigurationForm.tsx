@@ -35,34 +35,29 @@ export function ConfigurationForm({
   showPrivacyNote = false
 }: ConfigurationFormProps) {
   const textSize = compact ? "text-xs" : "text-sm";
-  const spacing = compact ? "space-y-3" : "space-y-4";
-  const marginBottom = compact ? "mb-3" : "mb-4";
+  const spacing = compact ? "space-y-2" : "space-y-4";
+  const marginBottom = compact ? "mb-2" : "mb-4";
+  const buttonSize = compact ? "h-7 text-xs" : "";
   
   return (
     <div className="w-full">
-      <div className={`grid grid-cols-2 gap-4 ${marginBottom}`}>
-        <div>
+      <div className={`grid grid-cols-1 gap-2 ${marginBottom}`}>
+        <div className="flex items-center justify-between">
           <Label htmlFor="spouse-toggle" className={`${textSize} font-medium`}>Spouse/partner</Label>
-          <div className="flex items-center justify-between mt-1">
-            <span className="text-xs text-muted-foreground">Have/plan to have</span>
-            <Switch 
-              id="spouse-toggle" 
-              checked={configData.hasSpouse} 
-              onCheckedChange={(checked) => onConfigChange({ hasSpouse: checked })} 
-            />
-          </div>
+          <Switch 
+            id="spouse-toggle" 
+            checked={configData.hasSpouse} 
+            onCheckedChange={(checked) => onConfigChange({ hasSpouse: checked })} 
+          />
         </div>
         
-        <div>
+        <div className="flex items-center justify-between">
           <Label htmlFor="pet-toggle" className={`${textSize} font-medium`}>Pets</Label>
-          <div className="flex items-center justify-between mt-1">
-            <span className="text-xs text-muted-foreground">Have/plan to have</span>
-            <Switch 
-              id="pet-toggle" 
-              checked={configData.hasPet} 
-              onCheckedChange={(checked) => onConfigChange({ hasPet: checked })} 
-            />
-          </div>
+          <Switch 
+            id="pet-toggle" 
+            checked={configData.hasPet} 
+            onCheckedChange={(checked) => onConfigChange({ hasPet: checked })} 
+          />
         </div>
       </div>
       
@@ -98,23 +93,21 @@ export function ConfigurationForm({
         </div>
       </div>
       
-      <div className={`space-y-2 ${marginBottom}`}>
-        <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Your Personal Number</Label>
-        <p className="text-xs text-muted-foreground">
-          Used as a seed. Same number = same board.
-        </p>
+      <div className={`space-y-1 ${marginBottom}`}>
+        <Label htmlFor="seed-input" className={`${textSize} font-medium`}>Personal Number</Label>
         <Input 
           id="seed-input"
           type="text" 
           value={configData.seedInput}
           onChange={(e: ChangeEvent<HTMLInputElement>) => onConfigChange({ seedInput: e.target.value })} 
-          placeholder="Enter your personal number" 
+          placeholder="Enter personal number" 
+          className={compact ? "h-7 text-xs" : ""}
         />
       </div>
       
       {showPrivacyNote && (
-        <div className={`bg-muted/30 p-3 rounded-md flex gap-2 items-start ${marginBottom}`}>
-          <AlertCircle className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
+        <div className={`bg-muted/30 p-2 rounded-md flex gap-2 items-start ${marginBottom}`}>
+          <AlertCircle className="h-3 w-3 text-muted-foreground flex-shrink-0 mt-0.5" />
           <p className="text-xs text-muted-foreground">
             Your information is only stored locally on your device.
           </p>
@@ -124,8 +117,9 @@ export function ConfigurationForm({
       {onSubmit && (
         <Button 
           onClick={onSubmit} 
-          className="w-full mt-2"
+          className={`w-full mt-2 ${buttonSize}`}
           disabled={!configData.seedInput.trim()}
+          size="sm"
         >
           {submitButtonText}
         </Button>

@@ -5,10 +5,11 @@ import { IntroductionStep } from "./wizard/IntroductionStep";
 import { ConfigurationStep } from "./wizard/ConfigurationStep";
 import { BingoCardStep } from "./wizard/BingoCardStep";
 import Cookies from "js-cookie";
-import { X } from "lucide-react";
+import { X, Settings, AlertTriangle, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription } from "@/components/ui/dialog";
 import { ConfigurationForm } from "@/components/ConfigurationForm";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 // Cookie name for storing configuration
 const CONFIG_COOKIE_NAME = "existence-bingo-config";
@@ -28,6 +29,8 @@ export function ExistenceBingoWizard() {
   const [configData, setConfigData] = useState(defaultConfig);
   const [isLoaded, setIsLoaded] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
 
   // Load configuration from cookies on initial render
   useEffect(() => {
@@ -64,6 +67,19 @@ export function ExistenceBingoWizard() {
 
   const handleConfigChange = (newConfig: Partial<typeof configData>) => {
     setConfigData(prev => ({ ...prev, ...newConfig }));
+  };
+
+  const applyConfigChanges = () => {
+    // Show success message
+    setSaveSuccess(true);
+    
+    // Regenerate the board with new config
+    setCurrentStep(2);
+    
+    // Hide success message after 2 seconds
+    setTimeout(() => {
+      setSaveSuccess(false);
+    }, 2000);
   };
 
   const goToNextStep = () => {
@@ -124,45 +140,90 @@ export function ExistenceBingoWizard() {
 
       {/* Settings Dialog */}
       <Dialog open={showSettings} onOpenChange={setShowSettings}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
+        <DialogContent className="sm:max-w-md max-h-[90vh] overflow-y-auto p-4">
+          <DialogHeader className="pb-2">
             <DialogTitle>Settings</DialogTitle>
           </DialogHeader>
           
-          {/* Configuration Options */}
-          <div className="py-4">
-            <h3 className="text-sm font-medium mb-3">Personal Configuration</h3>
+          <div className="flex gap-4">
+            {/* Configuration Options - Left Side */}
+            <div className="flex-1 py-2">
+              <h3 className="text-sm font-medium mb-2">Configuration</h3>
+              
+              <ConfigurationForm 
+                configData={configData}
+                onConfigChange={handleConfigChange}
+                onSubmit={applyConfigChanges}
+                submitButtonText="Apply"
+                compact={true}
+              />
+              
+              {saveSuccess && (
+                <div className="mt-2 flex items-center gap-2 text-green-600 text-xs animate-in fade-in">
+                  <CheckCircle2 className="h-3 w-3" />
+                  <span>Changes applied!</span>
+                </div>
+              )}
+            </div>
             
-            <ConfigurationForm 
-              configData={configData}
-              onConfigChange={handleConfigChange}
-              onSubmit={() => {
-                setShowSettings(false);
-                // Regenerate the board with new config
-                setCurrentStep(2);
-              }}
-              submitButtonText="Apply Changes"
-              compact={true}
-            />
+            {/* Vertical Separator */}
+            <div className="w-px bg-border"></div>
+            
+            {/* Danger Zone - Right Side */}
+            <div className="w-1/3 py-2">
+              <h3 className="text-sm font-medium mb-2 text-destructive">Danger Zone</h3>
+              
+              {!showDeleteConfirm ? (
+                <>
+                  <p className="text-xs text-muted-foreground mb-2">
+                    Delete all your configuration and bingo progress. This cannot be undone.
+                  </p>
+                  
+                  <Button 
+                    onClick={() => setShowDeleteConfirm(true)} 
+                    variant="destructive" 
+                    className="w-full justify-center text-xs h-8"
+                    size="sm"
+                  >
+                    <X className="mr-1 h-3 w-3" />
+                    Delete Data
+                  </Button>
+                </>
+              ) : (
+                <div className="space-y-2">
+                  <p className="text-xs text-destructive font-medium">Are you sure?</p>
+                  <div className="flex flex-col gap-2">
+                    <Button 
+                      onClick={deleteAllData} 
+                      variant="destructive" 
+                      className="w-full text-xs h-7"
+                      size="sm"
+                    >
+                      Yes, Delete
+                    </Button>
+                    <Button 
+                      onClick={() => setShowDeleteConfirm(false)} 
+                      variant="outline" 
+                      className="w-full text-xs h-7"
+                      size="sm"
+                    >
+                      Cancel
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
           
-          <div className="h-px bg-border my-2"></div>
-          
-          <div className="py-2">
-            <Button 
-              onClick={deleteAllData} 
-              variant="destructive" 
-              className="w-full justify-start"
-            >
-              <X className="mr-2 h-4 w-4" />
-              Delete My Data
-            </Button>
-          </div>
-          
-          <DialogFooter>
+          <DialogFooter className="pt-2">
             <Button 
               variant="secondary" 
-              onClick={() => setShowSettings(false)}
+              onClick={() => {
+                setShowSettings(false);
+                setShowDeleteConfirm(false);
+              }}
+              className="text-xs h-7"
+              size="sm"
             >
               Close
             </Button>
