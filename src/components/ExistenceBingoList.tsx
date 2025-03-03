@@ -27,6 +27,8 @@ export function ExistenceBingoList() {
     
     // Crime/safety-related
     [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['become'], ['sexually assaulted', 'victims of violent crime', 'imprisoned']],
+    [['Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['go missing']],
+    [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['stalking or harassment']],
     
     // Disaster-related
     [['You', 'Your spouse', 'Your child', 'Your parent', 'Your sibling'], ['experience'], ['a natural disaster', 'a serious accident']],
