@@ -77,11 +77,14 @@ export function ExistenceBingoList() {
     { subject: "You", verb: "get divorced", probability: 40 }, // 40% - approx divorce rate
     { subject: "Your parents", verb: "get divorced", probability: 45 }, // 45% - slightly higher for parents
     
-    { subject: "You", verb: "are cheated on by your partner", probability: 30 }, // 30% - infidelity rate
     { subject: "Your spouse", verb: "cheats on you", probability: 30 }, // 30% - same as above, different phrasing
     
     // Financial/work-related
     { subject: "You", verb: "go bankrupt", probability: 8 }, // 8%
+    { subject: "Your spouse", verb: "goes bankrupt", probability: 8 }, // 8%
+    { subject: "Your child", verb: "goes bankrupt", probability: 6 }, // 6% - slightly lower for younger people with less credit history
+    { subject: "Your parent", verb: "goes bankrupt", probability: 7 }, // 7%
+    { subject: "Your sibling", verb: "goes bankrupt", probability: 8 }, // 8%
     
     { subject: "You", verb: "become homeless", probability: 2 }, // 2%
     { subject: "Your spouse", verb: "becomes homeless", probability: 2 }, // 2%
@@ -95,6 +98,12 @@ export function ExistenceBingoList() {
     { subject: "Your sibling", verb: "suddenly loses their job", probability: 50 }, // 50%
     
     // Crime/safety-related
+    { subject: "You", verb: "are sexually assaulted", probability: 20 }, // 20% - lifetime risk varies significantly by gender
+    { subject: "Your spouse", verb: "is sexually assaulted", probability: 20 }, // 20%
+    { subject: "Your child", verb: "is sexually assaulted", probability: 15 }, // 15% - tragically common
+    { subject: "Your parent", verb: "is sexually assaulted", probability: 12 }, // 12% 
+    { subject: "Your sibling", verb: "is sexually assaulted", probability: 18 }, // 18%
+    
     { subject: "You", verb: "are a victim of violent crime", probability: 15 }, // 15%
     { subject: "Your spouse", verb: "is a victim of violent crime", probability: 15 }, // 15%
     { subject: "Your child", verb: "is a victim of violent crime", probability: 12 }, // 12%
@@ -120,8 +129,8 @@ export function ExistenceBingoList() {
     { subject: "Your sibling", verb: "experiences stalking or harassment", probability: 12 }, // 12%
     
     // Disaster-related
-    { subject: "You", verb: "lose your home in a natural disaster", probability: 5 }, // 5%
-    
+    { subject: "You", verb: "are severly effected by a natural disaster", probability: 5 }, // 5%
+
     { subject: "You", verb: "are in a serious accident", probability: 25 }, // 25%
     { subject: "Your spouse", verb: "is in a serious accident", probability: 25 }, // 25%
     { subject: "Your child", verb: "is in a serious accident", probability: 20 }, // 20%
