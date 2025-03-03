@@ -138,5 +138,12 @@ export const baseMisfortunes: Misfortune[] = [
   { text: "You've lost custody of your child", probability: 5 },
   { text: "You've experienced a miscarriage", probability: 15 },
   
-  { text: "You've had a pet die suddenly", probability: 40 }
+  { text: "You've had a pet die suddenly", probability: 40 },
+  
+  // Terrible Accidents
+  { text: "You've been in a terrible accident", probability: 8 },
+  { text: "You've had a spouse involved in a terrible accident", probability: 7 },
+  { text: "You've had a child involved in a terrible accident", probability: 5 },
+  { text: "You've had a parent involved in a terrible accident", probability: 6 },
+  { text: "You've had a sibling involved in a terrible accident", probability: 5 }
 ]; 
