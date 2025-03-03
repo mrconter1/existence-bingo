@@ -34,25 +34,31 @@ export function ExistenceBingoWizard() {
 
   // Load configuration from cookies on initial render
   useEffect(() => {
-    const savedConfig = Cookies.get(CONFIG_COOKIE_NAME);
-    
-    if (savedConfig) {
-      try {
-        const parsedConfig = JSON.parse(savedConfig);
-        setConfigData(parsedConfig);
-        
-        // If we have a valid seed, go directly to the bingo board
-        if (parsedConfig.seedInput && parsedConfig.seedInput.trim() !== "") {
-          setCurrentStep(2);
+    const loadConfig = async () => {
+      const savedConfig = Cookies.get(CONFIG_COOKIE_NAME);
+      
+      if (savedConfig) {
+        try {
+          const parsedConfig = JSON.parse(savedConfig);
+          setConfigData(parsedConfig);
+          
+          // If we have a valid seed, go directly to the bingo board
+          if (parsedConfig.seedInput && parsedConfig.seedInput.trim() !== "") {
+            setCurrentStep(2);
+          }
+        } catch (error) {
+          console.error("Error parsing saved configuration:", error);
+          // If there's an error parsing, use default config
+          setConfigData(defaultConfig);
         }
-      } catch (error) {
-        console.error("Error parsing saved configuration:", error);
-        // If there's an error parsing, use default config
-        setConfigData(defaultConfig);
       }
-    }
+      
+      // Small delay to ensure state updates are processed
+      await new Promise(resolve => setTimeout(resolve, 10));
+      setIsLoaded(true);
+    };
     
-    setIsLoaded(true);
+    loadConfig();
   }, []);
 
   // Save configuration to cookies whenever it changes
@@ -111,6 +117,17 @@ export function ExistenceBingoWizard() {
     setCurrentStep(0);
     setShowSettings(false);
   };
+
+  // Don't render anything until configuration is loaded
+  if (!isLoaded) {
+    return (
+      <div className="w-full max-w-md mx-auto p-3 rounded-lg bg-card flex flex-col h-full">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-md mx-auto p-3 rounded-lg bg-card flex flex-col h-full">
