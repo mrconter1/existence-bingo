@@ -84,10 +84,10 @@ export function ExistenceBingoList() {
     { text: "You've had a sibling that has experienced financial ruin", probability: 10 }, // 10%
     
     { text: "You've lost your job unexpectedly", probability: 30 }, // 30%
-    { text: "You've had a spouse that has lost their job unexpectedly", probability: 30 }, // 30%
-    { text: "You've had a child that has lost their job unexpectedly", probability: 25 }, // 25%
-    { text: "You've had a parent that has lost their job unexpectedly", probability: 20 }, // 20%
-    { text: "You've had a sibling that has lost their job unexpectedly", probability: 25 }, // 25%
+    { text: "You've had a spouse lose their job unexpectedly", probability: 30 }, // 30%
+    { text: "You've had a child lose their job unexpectedly", probability: 25 }, // 25%
+    { text: "You've had a parent lose their job unexpectedly", probability: 20 }, // 20%
+    { text: "You've had a sibling lose their job unexpectedly", probability: 25 }, // 25%
     
     // Crime/safety-related
     { text: "You've been the victim of a serious crime", probability: 20 }, // 20%
