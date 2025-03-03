@@ -86,6 +86,9 @@ export function ConfigurationStep({
           
           <div className="space-y-2 mt-4">
             <Label htmlFor="seed-input">Your Personal Number (or ID number)</Label>
+            <p className="text-xs text-muted-foreground mb-2">
+              This number is used as a seed to generate your unique bingo board. Using the same number will always generate the same board.
+            </p>
             <Input 
               id="seed-input"
               type="text" 

@@ -59,33 +59,146 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
     generateBingoCard();
   }, [configData]);
 
-  const getAdjustedMisfortunes = (): Misfortune[] => {
-    // Base list of misfortunes with probabilities
-    const baseMisfortunes: Misfortune[] = [
-      // Health-related
-      { text: "You've been diagnosed with cancer", probability: 40 },
-      { text: "You've been diagnosed with a chronic illness", probability: 60 },
-      { text: "You've been hospitalized for a serious condition", probability: 70 },
-      
-      // Family-related
-      { text: "You've lost a parent", probability: 70 },
-      { text: "You've lost a grandparent", probability: 95 },
-      { text: "You've lost a close friend", probability: 60 },
-      
-      // More items would be here in the full implementation
-      { text: "You've gone through a divorce", probability: 40 },
-      { text: "You've been fired from a job", probability: 30 },
-      { text: "You've experienced a major financial crisis", probability: 25 },
-      { text: "You've been in a serious accident", probability: 20 },
-      { text: "You've had a miscarriage", probability: 25 },
-      { text: "You've struggled with severe depression", probability: 15 },
-      { text: "You've developed an addiction", probability: 10 },
-      { text: "You've been a victim of a crime", probability: 15 },
-      { text: "You've lost your home", probability: 8 },
-      { text: "You've had a pet die", probability: configData.hasPet ? 90 : 0 },
-    ];
+  // Full list of misfortunes from the original component
+  const baseMisfortunes: Misfortune[] = [
+    // Health-related
+    { text: "You've had a spouse die unexpectedly", probability: 3 },
+    { text: "You've had a child die unexpectedly", probability: 1.5 },
+    { text: "You've had a parent die unexpectedly", probability: 8 },
+    { text: "You've had a sibling die unexpectedly", probability: 4 },
     
-    // Adjust probabilities based on family configuration
+    { text: "You've received a terminal diagnosis", probability: 20 },
+    { text: "You've had a spouse that has received a terminal diagnosis", probability: 22 },
+    { text: "You've had a child that has received a terminal diagnosis", probability: 5 },
+    { text: "You've had a parent that has received a terminal diagnosis", probability: 40 },
+    { text: "You've had a sibling that has received a terminal diagnosis", probability: 20 },
+    
+    { text: "You've become severely disabled", probability: 10 },
+    { text: "You've had a spouse that has become severely disabled", probability: 10 },
+    { text: "You've had a child that has become severely disabled", probability: 7 },
+    { text: "You've had a parent that has become severely disabled", probability: 20 },
+    { text: "You've had a sibling that has become severely disabled", probability: 9 },
+    
+    // Addiction-related
+    { text: "You've developed a gambling addiction", probability: 2 },
+    { text: "You've developed an alcohol addiction", probability: 10 },
+    { text: "You've developed a drug addiction", probability: 3 },
+    
+    { text: "You've had a spouse that has developed a gambling addiction", probability: 2 },
+    { text: "You've had a spouse that has developed an alcohol addiction", probability: 10 },
+    { text: "You've had a spouse that has developed a drug addiction", probability: 3 },
+    
+    { text: "You've had a child that has developed a gambling addiction", probability: 1 },
+    { text: "You've had a child that has developed an alcohol addiction", probability: 10 },
+    { text: "You've had a child that has developed a drug addiction", probability: 6 },
+    
+    { text: "You've had a parent that has developed a gambling addiction", probability: 2 },
+    { text: "You've had a parent that has developed an alcohol addiction", probability: 10 },
+    { text: "You've had a parent that has developed a drug addiction", probability: 2 },
+    
+    { text: "You've had a sibling that has developed a gambling addiction", probability: 2 },
+    { text: "You've had a sibling that has developed an alcohol addiction", probability: 10 },
+    { text: "You've had a sibling that has developed a drug addiction", probability: 5 },
+    
+    // Mental health-related
+    { text: "You've struggled with severe depression", probability: 15 },
+    { text: "You've had a spouse that has struggled with severe depression", probability: 15 },
+    { text: "You've had a child that has struggled with severe depression", probability: 15 },
+    { text: "You've had a parent that has struggled with severe depression", probability: 15 },
+    { text: "You've had a sibling that has struggled with severe depression", probability: 15 },
+    
+    // Relationship-related
+    { text: "You've gone through a divorce", probability: 40 },
+    { text: "You've had parents divorcing", probability: 35 },
+    
+    // Financial/work-related
+    { text: "You've gone bankrupt", probability: 15 },
+    { text: "You've had a spouse that has gone bankrupt", probability: 15 },
+    { text: "You've had a child that has gone bankrupt", probability: 10 },
+    { text: "You've had a parent that has gone bankrupt", probability: 10 },
+    { text: "You've had a sibling that has gone bankrupt", probability: 10 },
+    
+    { text: "You've lost your job unexpectedly", probability: 30 },
+    { text: "You've had a spouse lose their job unexpectedly", probability: 30 },
+    { text: "You've had a child lose their job unexpectedly", probability: 25 },
+    { text: "You've had a parent lose their job unexpectedly", probability: 20 },
+    { text: "You've had a sibling lose their job unexpectedly", probability: 25 },
+    
+    // Crime/safety-related
+    { text: "You've been a victim of a serious crime", probability: 20 },
+    { text: "You've had a spouse that has been a victim of a serious crime", probability: 20 },
+    { text: "You've had a child that has been a victim of a serious crime", probability: 15 },
+    { text: "You've had a parent that has been a victim of a serious crime", probability: 15 },
+    { text: "You've had a sibling that has been a victim of a serious crime", probability: 18 },
+    
+    { text: "You've been a victim of sexual assault", probability: 10 },
+    { text: "You've had a spouse that has been a victim of sexual assault", probability: 10 },
+    { text: "You've had a child that has been a victim of sexual assault", probability: 8 },
+    { text: "You've had a parent that has been a victim of sexual assault", probability: 8 },
+    { text: "You've had a sibling that has been a victim of sexual assault", probability: 9 },
+    
+    { text: "You've had a spouse go missing", probability: 0.5 },
+    { text: "You've had a child go missing", probability: 0.8 },
+    { text: "You've had a parent go missing", probability: 0.3 },
+    { text: "You've had a sibling go missing", probability: 0.5 },
+    
+    { text: "You've experienced stalking", probability: 8 },
+    { text: "You've had a spouse that has experienced stalking", probability: 8 },
+    { text: "You've had a child that has experienced stalking", probability: 6 },
+    { text: "You've had a parent that has experienced stalking", probability: 4 },
+    { text: "You've had a sibling that has experienced stalking", probability: 6 },
+    
+    { text: "You've been a victim of serious identity theft", probability: 10 },
+    { text: "You've had a spouse that has been a victim of serious identity theft", probability: 10 },
+    { text: "You've had a child that has been a victim of serious identity theft", probability: 8 },
+    { text: "You've had a parent that has been a victim of serious identity theft", probability: 12 },
+    { text: "You've had a sibling that has been a victim of serious identity theft", probability: 9 },
+    
+    // War/Conflict Related
+    { text: "You've been severely affected by war or armed conflict", probability: 3 },
+    { text: "You've had a spouse severely affected by war or armed conflict", probability: 3 },
+    { text: "You've had a child severely affected by war or armed conflict", probability: 2.5 },
+    { text: "You've had a parent severely affected by war or armed conflict", probability: 4 },
+    { text: "You've had a sibling severely affected by war or armed conflict", probability: 3 },
+    
+    // Displacement/Housing
+    { text: "You've been forced to move out of your home", probability: 6 },
+    { text: "You've had a spouse forced to move out of their home", probability: 6 },
+    { text: "You've had a child forced to move out of their home", probability: 5 },
+    { text: "You've had a parent forced to move out of their home", probability: 7 },
+    { text: "You've had a sibling forced to move out of their home", probability: 6 },
+    
+    // Witnessing Trauma
+    { text: "You've witnessed a traumatic event", probability: 15 },
+    { text: "You've had a spouse witness a traumatic event", probability: 15 },
+    { text: "You've had a child witness a traumatic event", probability: 12 },
+    { text: "You've had a parent witness a traumatic event", probability: 12 },
+    { text: "You've had a sibling witness a traumatic event", probability: 14 },
+    
+    // Chronic Illness
+    { text: "You've been diagnosed with a serious chronic illness", probability: 15 },
+    { text: "You've had a spouse diagnosed with a serious chronic illness", probability: 15 },
+    { text: "You've had a child diagnosed with a serious chronic illness", probability: 7 },
+    { text: "You've had a parent diagnosed with a serious chronic illness", probability: 25 },
+    { text: "You've had a sibling diagnosed with a serious chronic illness", probability: 12 },
+    
+    // Disaster-related
+    { text: "You've been severely affected by a natural disaster", probability: 3 },
+    { text: "You've had a spouse being serverly affected by a natural disaster", probability: 3 },
+    { text: "You've had a child being serverly affected by a natural disaster", probability: 3 },
+    { text: "You've had a parent being serverly affected by a natural disaster", probability: 3 },
+    { text: "You've had a sibling being serverly affected by a natural disaster", probability: 3 },
+    
+    // Specific cases
+    { text: "You've had a spouse cheat on you", probability: 15 },
+    { text: "You've lost custody of your child", probability: 5 },
+    { text: "You've experienced a miscarriage", probability: 15 },
+    
+    { text: "You've had a pet die suddenly", probability: 40 }
+  ];
+  
+  const getAdjustedMisfortunes = (): Misfortune[] => {
+    // Filter and adjust probabilities based on family configuration
     const adjustedMisfortunes = baseMisfortunes.map(item => {
       let adjustedProbability = item.probability;
       
@@ -106,6 +219,11 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
         adjustedProbability = 0;
       } else if (item.text.includes("sibling") && configData.siblingCount > 0) {
         adjustedProbability = calculateAdjustedProbability(item.probability, configData.siblingCount);
+      }
+      
+      // Adjust pet-related events
+      if (item.text.includes("pet") && !configData.hasPet) {
+        adjustedProbability = 0;
       }
       
       return { ...item, probability: adjustedProbability };
@@ -249,8 +367,12 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
     <div className="space-y-6">
       <Card className="p-6">
         <h3 className="text-xl font-bold mb-2 text-center">Your Life Events Bingo Card</h3>
-        <p className="text-sm text-muted-foreground mb-6 text-center">
+        <p className="text-sm text-muted-foreground mb-2 text-center">
           Mark off the events you've experienced in your life!
+        </p>
+        <p className="text-xs text-muted-foreground mb-6 text-center">
+          This board is uniquely generated based on your personal number and family configuration.
+          Share your personal number with friends to compare the same board!
         </p>
         
         {hasBingo && (
@@ -283,12 +405,9 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
         </p>
       </Card>
       
-      <div className="flex justify-between">
+      <div className="flex justify-start">
         <Button onClick={onBack} variant="outline">
           Back to Configuration
-        </Button>
-        <Button onClick={generateBingoCard}>
-          Regenerate Card
         </Button>
       </div>
     </div>
