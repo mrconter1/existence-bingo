@@ -1,19 +1,55 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { IntroductionStep } from "./wizard/IntroductionStep";
 import { ConfigurationStep } from "./wizard/ConfigurationStep";
 import { BingoCardStep } from "./wizard/BingoCardStep";
+import Cookies from "js-cookie";
+
+// Cookie name for storing configuration
+const CONFIG_COOKIE_NAME = "existence-bingo-config";
+
+// Default configuration
+const defaultConfig = {
+  hasSpouse: true,
+  childCount: 2,
+  siblingCount: 1,
+  hasPet: true,
+  seedInput: ""
+};
 
 export function ExistenceBingoWizard() {
   const [currentStep, setCurrentStep] = useState(0);
-  const [configData, setConfigData] = useState({
-    hasSpouse: true,
-    childCount: 2,
-    siblingCount: 1,
-    hasPet: true,
-    seedInput: ""
-  });
+  const [configData, setConfigData] = useState(defaultConfig);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load configuration from cookies on initial render
+  useEffect(() => {
+    const savedConfig = Cookies.get(CONFIG_COOKIE_NAME);
+    
+    if (savedConfig) {
+      try {
+        const parsedConfig = JSON.parse(savedConfig);
+        setConfigData(parsedConfig);
+      } catch (error) {
+        console.error("Error parsing saved configuration:", error);
+        // If there's an error parsing, use default config
+        setConfigData(defaultConfig);
+      }
+    }
+    
+    setIsLoaded(true);
+  }, []);
+
+  // Save configuration to cookies whenever it changes
+  useEffect(() => {
+    if (isLoaded) {
+      Cookies.set(CONFIG_COOKIE_NAME, JSON.stringify(configData), { 
+        expires: 365, // Store for 1 year
+        sameSite: 'strict'
+      });
+    }
+  }, [configData, isLoaded]);
 
   const handleConfigChange = (newConfig: Partial<typeof configData>) => {
     setConfigData(prev => ({ ...prev, ...newConfig }));

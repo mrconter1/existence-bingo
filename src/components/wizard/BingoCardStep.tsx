@@ -5,6 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Misfortune, baseMisfortunes } from "@/data/misfortunes";
 import { SeededRandom } from "@/utils/random";
+import Cookies from "js-cookie";
+
+// Cookie name for storing bingo state
+const BINGO_STATE_COOKIE_NAME = "existence-bingo-state";
 
 interface ConfigData {
   hasSpouse: boolean;
@@ -23,10 +27,27 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
   const [bingoItems, setBingoItems] = useState<Misfortune[]>([]);
   const [hasBingo, setHasBingo] = useState(false);
   const [expectedEvents, setExpectedEvents] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
 
+  // Generate bingo card on initial render or when config changes
   useEffect(() => {
     generateBingoCard();
   }, [configData]);
+
+  // Load checked state from cookies after generating the card
+  useEffect(() => {
+    if (bingoItems.length > 0 && !isLoaded) {
+      loadBingoState();
+      setIsLoaded(true);
+    }
+  }, [bingoItems]);
+
+  // Save bingo state to cookies whenever it changes
+  useEffect(() => {
+    if (isLoaded && bingoItems.length > 0) {
+      saveBingoState();
+    }
+  }, [bingoItems, isLoaded]);
 
   const getAdjustedMisfortunes = (): Misfortune[] => {
     // Filter and adjust probabilities based on family configuration
@@ -154,7 +175,7 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
     }
     
     setBingoItems(bingoCard);
-    checkForBingo();
+    setIsLoaded(false); // Reset isLoaded to trigger loading from cookies
   };
 
   const toggleChecked = (index: number) => {
@@ -191,6 +212,59 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
       }
     }
     
+    setHasBingo(false);
+  };
+
+  // Save the current state of checked items to cookies
+  const saveBingoState = () => {
+    // Create a cookie key based on the seed to ensure different boards have different saved states
+    const sanitizedInput = configData.seedInput.replace(/[^0-9]/g, '');
+    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${sanitizedInput}`;
+    
+    // Save only the checked state of each item
+    const checkedState = bingoItems.map(item => item.checked || false);
+    
+    Cookies.set(cookieKey, JSON.stringify(checkedState), { 
+      expires: 365, // Store for 1 year
+      sameSite: 'strict'
+    });
+  };
+
+  // Load the checked state from cookies
+  const loadBingoState = () => {
+    const sanitizedInput = configData.seedInput.replace(/[^0-9]/g, '');
+    const cookieKey = `${BINGO_STATE_COOKIE_NAME}-${sanitizedInput}`;
+    
+    const savedState = Cookies.get(cookieKey);
+    
+    if (savedState) {
+      try {
+        const checkedState = JSON.parse(savedState);
+        
+        // Apply the saved checked state to the current bingo items
+        if (Array.isArray(checkedState) && checkedState.length === bingoItems.length) {
+          const updatedItems = bingoItems.map((item, index) => ({
+            ...item,
+            checked: checkedState[index]
+          }));
+          
+          setBingoItems(updatedItems);
+          
+          // Check for bingo after loading state
+          setTimeout(() => {
+            checkForBingo();
+          }, 100);
+        }
+      } catch (error) {
+        console.error("Error parsing saved bingo state:", error);
+      }
+    }
+  };
+
+  // Reset the bingo board (clear all checked items)
+  const resetBingoBoard = () => {
+    const newItems = bingoItems.map(item => ({ ...item, checked: false }));
+    setBingoItems(newItems);
     setHasBingo(false);
   };
 
@@ -231,9 +305,12 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
         </div>
       </div>
       
-      <div className="w-full max-w-md flex justify-start mt-2">
+      <div className="w-full max-w-md flex justify-between mt-2">
         <Button onClick={onBack} variant="outline" size="sm">
           Back
+        </Button>
+        <Button onClick={resetBingoBoard} variant="outline" size="sm">
+          Reset Board
         </Button>
       </div>
     </div>
