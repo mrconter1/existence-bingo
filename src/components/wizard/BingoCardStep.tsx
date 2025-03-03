@@ -6,6 +6,8 @@ import { Misfortune, baseMisfortunes } from "@/data/misfortunes";
 import { SeededRandom } from "@/utils/random";
 import Cookies from "js-cookie";
 import { Settings } from "lucide-react";
+import { ConfettiCelebration } from "@/components/ConfettiCelebration";
+import { BingoMessage } from "@/components/BingoMessage";
 
 // Cookie name for storing bingo state
 const BINGO_STATE_COOKIE_NAME = "existence-bingo-state";
@@ -27,8 +29,11 @@ interface BingoCardStepProps {
 export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardStepProps) {
   const [bingoItems, setBingoItems] = useState<Misfortune[]>([]);
   const [hasBingo, setHasBingo] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
   const [expectedEvents, setExpectedEvents] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [newBingoAchieved, setNewBingoAchieved] = useState(false);
 
   // Generate bingo card on initial render or when config changes
   useEffect(() => {
@@ -49,6 +54,35 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
       saveBingoState();
     }
   }, [bingoItems, isLoaded]);
+
+  // Trigger confetti and message when bingo is achieved
+  useEffect(() => {
+    if (newBingoAchieved) {
+      setShowConfetti(true);
+      setShowMessage(true);
+      
+      // Reset confetti after animation completes
+      const confettiTimer = setTimeout(() => {
+        setShowConfetti(false);
+      }, 5000);
+      
+      // Hide message after a longer duration
+      const messageTimer = setTimeout(() => {
+        setShowMessage(false);
+      }, 8000);
+      
+      // Reset the new bingo flag
+      const resetTimer = setTimeout(() => {
+        setNewBingoAchieved(false);
+      }, 8000);
+      
+      return () => {
+        clearTimeout(confettiTimer);
+        clearTimeout(messageTimer);
+        clearTimeout(resetTimer);
+      };
+    }
+  }, [newBingoAchieved]);
 
   const getAdjustedMisfortunes = (): Misfortune[] => {
     // Filter and adjust probabilities based on family configuration
@@ -186,11 +220,11 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
     
     // Check for bingo after toggling
     setTimeout(() => {
-      checkForBingo();
+      checkForBingo(newItems);
     }, 100);
   };
 
-  const checkForBingo = () => {
+  const checkForBingo = (items = bingoItems) => {
     // Define all possible bingo lines (rows, columns, diagonals)
     const lines = [
       [0, 1, 2, 3],       // row 1
@@ -206,14 +240,21 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
     ];
     
     // Check each line for bingo
+    let foundBingo = false;
     for (const line of lines) {
-      if (line.every(index => bingoItems[index]?.checked)) {
-        setHasBingo(true);
-        return;
+      if (line.every(index => items[index]?.checked)) {
+        foundBingo = true;
+        break;
       }
     }
     
-    setHasBingo(false);
+    // Only trigger animation if this is a new bingo
+    if (foundBingo && !hasBingo) {
+      setHasBingo(true);
+      setNewBingoAchieved(true);
+    } else if (!foundBingo && hasBingo) {
+      setHasBingo(false);
+    }
   };
 
   // Save the current state of checked items to cookies
@@ -253,7 +294,7 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
           
           // Check for bingo after loading state
           setTimeout(() => {
-            checkForBingo();
+            checkForBingo(updatedItems);
           }, 100);
         }
       } catch (error) {
@@ -264,24 +305,29 @@ export function BingoCardStep({ configData, onBack, onOpenSettings }: BingoCardS
 
   return (
     <div className="flex flex-col h-full w-full justify-center">
+      {/* Confetti celebration */}
+      <ConfettiCelebration 
+        active={showConfetti} 
+        duration={5000}
+        particleCount={300}
+      />
+      
+      {/* Bingo message */}
+      <BingoMessage show={showMessage} />
+      
       <div className="flex flex-col items-center w-full">
         <div className="w-full flex flex-col space-y-1 mb-3">
           <div className="flex justify-between items-center">
-            <h3 className="text-lg font-semibold">Life Events Bingo</h3>
             <div className="flex items-center gap-2">
-              {hasBingo && (
-                <div className="bg-primary/20 border border-primary px-2 py-0.5 rounded-full text-xs font-medium animate-pulse">
-                  BINGO!
-                </div>
-              )}
-              <div className="relative group">
-                <Settings 
-                  className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={onOpenSettings}
-                />
-                <div className="absolute right-0 top-full mt-1 w-32 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
-                  Settings and configuration
-                </div>
+              <h3 className="text-lg font-semibold">Life Events Bingo</h3>
+            </div>
+            <div className="relative group">
+              <Settings 
+                className="h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+                onClick={onOpenSettings}
+              />
+              <div className="absolute right-0 top-full mt-1 w-32 bg-popover text-popover-foreground text-xs p-2 rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity z-10 pointer-events-none">
+                Settings and configuration
               </div>
             </div>
           </div>
