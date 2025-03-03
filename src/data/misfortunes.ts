@@ -99,11 +99,11 @@ export const baseMisfortunes: Misfortune[] = [
   { text: "You've had a sibling that has been a victim of serious identity theft", probability: 9 },
   
   // War/Conflict Related
-  { text: "You've been severely affected by war or armed conflict", probability: 3 },
-  { text: "You've had a spouse severely affected by war or armed conflict", probability: 3 },
-  { text: "You've had a child severely affected by war or armed conflict", probability: 2.5 },
-  { text: "You've had a parent severely affected by war or armed conflict", probability: 4 },
-  { text: "You've had a sibling severely affected by war or armed conflict", probability: 3 },
+  { text: "You've been severely affected by war", probability: 3 },
+  { text: "You've had a spouse severely affected by war", probability: 3 },
+  { text: "You've had a child severely affected by war", probability: 2.5 },
+  { text: "You've had a parent severely affected by war", probability: 4 },
+  { text: "You've had a sibling severely affected by war", probability: 3 },
   
   // Displacement/Housing
   { text: "You've been forced to move out of your home", probability: 6 },
