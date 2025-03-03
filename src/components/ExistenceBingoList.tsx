@@ -45,31 +45,31 @@ export function ExistenceBingoList() {
     
     // Addiction-related
     { text: "You've developed a gambling addiction", probability: 2 }, // 2%
-    { text: "You've developed an alcohol addiction", probability: 5 }, // 5%
+    { text: "You've developed an alcohol addiction", probability: 10 }, // 10%
     { text: "You've developed a drug addiction", probability: 3 }, // 3%
     
     { text: "You've had a spouse that has developed a gambling addiction", probability: 2 }, // 2%
-    { text: "You've had a spouse that has developed an alcohol addiction", probability: 5 }, // 5%
+    { text: "You've had a spouse that has developed an alcohol addiction", probability: 10 }, // 10%
     { text: "You've had a spouse that has developed a drug addiction", probability: 3 }, // 3%
     
     { text: "You've had a child that has developed a gambling addiction", probability: 1 }, // 1%
-    { text: "You've had a child that has developed an alcohol addiction", probability: 4 }, // 4%
+    { text: "You've had a child that has developed an alcohol addiction", probability: 10 }, // 10%
     { text: "You've had a child that has developed a drug addiction", probability: 6 }, // 6% - more common in youth
     
     { text: "You've had a parent that has developed a gambling addiction", probability: 2 }, // 2%
-    { text: "You've had a parent that has developed an alcohol addiction", probability: 7 }, // 7%
+    { text: "You've had a parent that has developed an alcohol addiction", probability: 10 }, // 10%
     { text: "You've had a parent that has developed a drug addiction", probability: 2 }, // 2%
     
     { text: "You've had a sibling that has developed a gambling addiction", probability: 2 }, // 2%
-    { text: "You've had a sibling that has developed an alcohol addiction", probability: 5 }, // 5%
+    { text: "You've had a sibling that has developed an alcohol addiction", probability: 10 }, // 10%
     { text: "You've had a sibling that has developed a drug addiction", probability: 5 }, // 5%
     
     // Mental health-related
-    { text: "You've struggled with severe depression", probability: 10 }, // 10%
-    { text: "You've had a spouse that has struggled with severe depression", probability: 10 }, // 10%
-    { text: "You've had a child that has struggled with severe depression", probability: 8 }, // 8%
-    { text: "You've had a parent that has struggled with severe depression", probability: 8 }, // 8%
-    { text: "You've had a sibling that has struggled with severe depression", probability: 9 }, // 9%
+    { text: "You've struggled with severe depression", probability: 15 }, // 15%
+    { text: "You've had a spouse that has struggled with severe depression", probability: 15 }, // 15%
+    { text: "You've had a child that has struggled with severe depression", probability: 15 }, // 15%
+    { text: "You've had a parent that has struggled with severe depression", probability: 15 }, // 15%
+    { text: "You've had a sibling that has struggled with severe depression", probability: 15 }, // 15%
     
     // Relationship-related
     { text: "You've gone through a divorce", probability: 40 }, // 40%
