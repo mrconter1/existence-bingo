@@ -134,7 +134,7 @@ export function ExistenceBingoList() {
       ['Your child'], ['experiences a miscarriage']
     ],
     [
-      ['Your pet'], ['dies']
+      ['Your pet'], ['dies', 'becomes seriously ill', 'becomes seriously injured']
     ],
   ];
 
