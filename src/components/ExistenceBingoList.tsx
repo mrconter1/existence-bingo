@@ -1,15 +1,47 @@
 "use client"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, ChangeEvent } from 'react';
 import { Slider } from "@/components/ui/slider";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 interface Misfortune {
   text: string;
   probability: number;
+}
+
+// Seeded random number generator
+class SeededRandom {
+  private seed: number;
+
+  constructor(seed: number) {
+    this.seed = seed % 2147483647;
+    if (this.seed <= 0) this.seed += 2147483646;
+  }
+
+  // Returns a random number between 0 and 1
+  next(): number {
+    this.seed = (this.seed * 16807) % 2147483647;
+    return this.seed / 2147483647;
+  }
+
+  // Get a random integer between min (inclusive) and max (exclusive)
+  nextInt(min: number, max: number): number {
+    return Math.floor(this.next() * (max - min)) + min;
+  }
+
+  // Shuffle an array using Fisher-Yates algorithm with seed
+  shuffle<T>(array: T[]): T[] {
+    const result = [...array];
+    for (let i = result.length - 1; i > 0; i--) {
+      const j = Math.floor(this.next() * (i + 1));
+      [result[i], result[j]] = [result[j], result[i]];
+    }
+    return result;
+  }
 }
 
 export function ExistenceBingoList() {
@@ -18,6 +50,10 @@ export function ExistenceBingoList() {
   const [childCount, setChildCount] = useState(1);
   const [siblingCount, setSiblingCount] = useState(1);
   const [hasPet, setHasPet] = useState(true);
+  
+  // Seed for random generation
+  const [seed, setSeed] = useState<number>(Math.floor(Math.random() * 1000000));
+  const [seedInput, setSeedInput] = useState<string>(seed.toString());
   
   // State for the bingo card view
   const [showBingoCard, setShowBingoCard] = useState(false);
@@ -207,6 +243,14 @@ export function ExistenceBingoList() {
   
   // Generate a balanced 4x4 bingo card (16 items)
   const generateBingoCard = () => {
+    // Set seed from input - sanitize by removing non-numeric characters first
+    const sanitizedInput = seedInput.replace(/[^0-9]/g, '');
+    const seedNumber = parseInt(sanitizedInput) || Math.floor(Math.random() * 1000000);
+    setSeed(seedNumber);
+    
+    // Create seeded random generator
+    const random = new SeededRandom(seedNumber);
+    
     const allMisfortunes = getAdjustedMisfortunes();
     const bingoCard: {text: string, probability: number, checked?: boolean}[] = [];
     
@@ -221,10 +265,9 @@ export function ExistenceBingoList() {
     const mediumProb = allMisfortunes.filter(m => m.probability >= 10 && m.probability < 30);
     const lowProb = allMisfortunes.filter(m => m.probability < 10);
     
-    // Smart selection for a more realistic bingo chance
-    // We'll strategically place high probability events to increase chance of getting a bingo
+    // Use seeded random for shuffling
     const shuffleAndSlice = (arr: any[], count: number) => {
-      return [...arr].sort(() => Math.random() - 0.5).slice(0, count);
+      return random.shuffle(arr).slice(0, count);
     };
     
     // Select misfortunes from each probability bucket
@@ -234,7 +277,7 @@ export function ExistenceBingoList() {
     
     // Strategic placement for bingo chances
     const allItems = [...highItems, ...mediumItems, ...lowItems];
-    allItems.sort(() => Math.random() - 0.5); // Shuffle all items
+    allItems.sort(() => random.next() - 0.5); // Shuffle all items with seed
     
     // Create a 4x4 grid with all spaces filled with misfortunes
     for (let i = 0; i < 16; i++) {
@@ -263,8 +306,8 @@ export function ExistenceBingoList() {
         [3, 6, 9, 12]       // diagonal 2
       ];
       
-      // Choose a random line
-      const chosenLineIndex = Math.floor(Math.random() * lines.length);
+      // Choose a random line based on seed
+      const chosenLineIndex = random.nextInt(0, lines.length);
       const chosenLine = lines[chosenLineIndex];
       
       // For each position in the chosen line
@@ -285,6 +328,7 @@ export function ExistenceBingoList() {
     ensureWinnableLine();
     setBingoItems(bingoCard);
     setShowBingoCard(true);
+    setShowSimulation(false);
   };
   
   // Toggle checked state for a bingo item
@@ -330,6 +374,14 @@ export function ExistenceBingoList() {
   
   // New function to simulate life events
   const simulateLifeEvents = () => {
+    // Set seed from input - sanitize by removing non-numeric characters first
+    const sanitizedInput = seedInput.replace(/[^0-9]/g, '');
+    const seedNumber = parseInt(sanitizedInput) || Math.floor(Math.random() * 1000000);
+    setSeed(seedNumber);
+    
+    // Create seeded random generator
+    const random = new SeededRandom(seedNumber);
+    
     const adjustedMisfortunes = getAdjustedMisfortunes();
     const simulatedEvents: string[] = [];
     
@@ -337,9 +389,9 @@ export function ExistenceBingoList() {
     const totalProbability = adjustedMisfortunes.reduce((sum, item) => sum + item.probability, 0);
     setExpectedEvents(totalProbability / 100);
     
-    // Roll the dice for each possible event
+    // Roll the dice for each possible event using seeded random
     adjustedMisfortunes.forEach(event => {
-      const roll = Math.random() * 100;
+      const roll = random.next() * 100;
       if (roll < event.probability) {
         simulatedEvents.push(event.text);
       }
@@ -409,6 +461,19 @@ export function ExistenceBingoList() {
               checked={hasPet} 
               onCheckedChange={setHasPet} 
             />
+          </div>
+          
+          <div className="space-y-2 mt-4">
+            <Label htmlFor="seed-input">Your Personal Number (or ID number)</Label>
+            <div className="flex gap-2">
+              <Input 
+                id="seed-input"
+                type="text" 
+                value={seedInput}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setSeedInput(e.target.value)} 
+                placeholder="Enter your personal number" 
+              />
+            </div>
           </div>
           
           <div className="flex justify-center space-x-4 pt-4">
