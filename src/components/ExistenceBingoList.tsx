@@ -23,7 +23,6 @@ export function ExistenceBingoList() {
   // Base misfortunes with probabilities for a single family member
   const baseMisfortunes: Misfortune[] = [
     // Health-related
-    { subject: "You", verb: "die unexpectedly", probability: 0.1 }, // 0.1% - sudden death is rare for young/middle-aged person
     { subject: "Your spouse", verb: "dies unexpectedly", probability: 3 }, // 3%
     { subject: "Your child", verb: "dies unexpectedly", probability: 1.5 }, // 1.5% - sadly, some children die before parents
     { subject: "Your parent", verb: "dies unexpectedly", probability: 8 }, // 8% - more common as parents age
