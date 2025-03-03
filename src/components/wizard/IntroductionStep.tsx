@@ -19,10 +19,16 @@ export function IntroductionStep({ onNext }: IntroductionStepProps) {
         
         <Card className="bg-muted/30 p-4 rounded mb-5">
           <p className="text-sm">
-            Your personal number and family configuration create a unique board 
-            based on statistical probabilities of various life challenges.
+            This board is uniquely generated based on your personal identifier and family situation. 
+            Each square represents a potential life challenge with its probability adjusted to your circumstances.
           </p>
         </Card>
+        
+        <div className="bg-primary/10 border border-primary/20 rounded-md p-3 mb-5">
+          <p className="text-sm font-medium">
+            Statistically, about 35-40% of people will get a bingo on their board during their lifetime.
+          </p>
+        </div>
       </div>
       
       <div className="mt-3 w-full max-w-xs">
