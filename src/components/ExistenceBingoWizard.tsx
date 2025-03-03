@@ -29,25 +29,25 @@ export function ExistenceBingoWizard() {
 
   return (
     <div className="w-full max-w-lg mx-auto p-4 rounded-lg bg-card flex flex-col h-full">
-      <div className="flex items-center justify-between mb-2">
+      <div className="flex items-center justify-between mb-4">
         <h2 className="text-xl font-bold text-foreground">Existence Bingo</h2>
         
-        {/* Compact step indicators */}
-        <div className="flex items-center gap-1">
-          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+        {/* Step indicators */}
+        <div className="flex items-center gap-2">
+          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 0 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             1
           </div>
-          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 1 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             2
           </div>
-          <div className={`w-6 h-6 rounded-full flex items-center justify-center text-xs ${currentStep >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
+          <div className={`w-7 h-7 rounded-full flex items-center justify-center text-xs ${currentStep >= 2 ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground"}`}>
             3
           </div>
         </div>
       </div>
 
-      {/* Content container that fills available space */}
-      <div className="flex-1 flex flex-col">
+      {/* Content container with centered content */}
+      <div className="flex-1 flex flex-col justify-center">
         {currentStep === 0 && (
           <IntroductionStep onNext={goToNextStep} />
         )}

@@ -195,33 +195,35 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
   };
 
   return (
-    <div className="flex flex-col flex-1 space-y-2">
-      <div className="flex justify-between items-center">
-        <h3 className="text-base font-bold">Life Events Bingo</h3>
-        {hasBingo && (
-          <div className="bg-yellow-100 dark:bg-yellow-900 px-2 py-0.5 rounded text-xs font-bold animate-pulse">
-            BINGO!
-          </div>
-        )}
+    <div className="flex flex-col items-center w-full">
+      <div className="w-full max-w-md mx-auto text-center mb-3">
+        <div className="flex justify-center items-center mb-2">
+          <h3 className="text-lg font-bold">Life Events Bingo</h3>
+          {hasBingo && (
+            <div className="bg-yellow-100 dark:bg-yellow-900 px-3 py-1 rounded text-xs font-bold animate-pulse ml-3">
+              BINGO!
+            </div>
+          )}
+        </div>
+        
+        <p className="text-sm text-muted-foreground mb-3">
+          Mark off events you've experienced. Board is unique to your personal number.
+        </p>
       </div>
       
-      <p className="text-xs text-muted-foreground">
-        Mark off events you've experienced. Board is unique to your personal number.
-      </p>
-      
-      {/* Square bingo board - reduced size */}
-      <div className="flex-1 aspect-square w-full max-w-[500px] mx-auto">
-        <div className="grid grid-cols-4 grid-rows-4 gap-1 h-full">
+      {/* Square bingo board - centered and properly sized */}
+      <div className="w-full max-w-md aspect-square mx-auto mb-4">
+        <div className="grid grid-cols-4 grid-rows-4 gap-2 h-full">
           {bingoItems.map((item, index) => (
             <Card 
               key={index} 
-              className={`p-1 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
+              className={`p-1.5 flex flex-col items-center justify-center text-center cursor-pointer transition-colors
                 ${item.checked 
                   ? "bg-primary/20 border-primary" 
                   : "hover:bg-accent"}`}
               onClick={() => toggleChecked(index)}
             >
-              <span className={`text-[0.7rem] leading-tight ${item.checked ? "line-through opacity-70" : ""}`}>
+              <span className={`text-xs leading-tight ${item.checked ? "line-through opacity-70" : ""}`}>
                 {item.text}
               </span>
             </Card>
@@ -229,7 +231,7 @@ export function BingoCardStep({ configData, onBack }: BingoCardStepProps) {
         </div>
       </div>
       
-      <div className="flex justify-between items-center text-xs mt-1">
+      <div className="w-full max-w-md flex justify-start mt-2">
         <Button onClick={onBack} variant="outline" size="sm">
           Back
         </Button>
