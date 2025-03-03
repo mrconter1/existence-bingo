@@ -205,7 +205,7 @@ export function ExistenceBingoList() {
     return result.sort((a, b) => b.probability - a.probability);
   };
   
-  // Generate a balanced 5x5 bingo card (25 items)
+  // Generate a balanced 4x4 bingo card (16 items)
   const generateBingoCard = () => {
     const allMisfortunes = getAdjustedMisfortunes();
     const bingoCard: {text: string, probability: number, checked?: boolean}[] = [];
@@ -228,16 +228,16 @@ export function ExistenceBingoList() {
     };
     
     // Select misfortunes from each probability bucket
-    const highItems = shuffleAndSlice(highProb, 9);
-    const mediumItems = shuffleAndSlice(mediumProb, 9); 
-    const lowItems = shuffleAndSlice(lowProb, 7);
+    const highItems = shuffleAndSlice(highProb, 7);  // More high probability items
+    const mediumItems = shuffleAndSlice(mediumProb, 6); 
+    const lowItems = shuffleAndSlice(lowProb, 3);  // Fewer low probability items
     
     // Strategic placement for bingo chances
     const allItems = [...highItems, ...mediumItems, ...lowItems];
     allItems.sort(() => Math.random() - 0.5); // Shuffle all items
     
-    // Create a 5x5 grid with all spaces filled with misfortunes
-    for (let i = 0; i < 25; i++) {
+    // Create a 4x4 grid with all spaces filled with misfortunes
+    for (let i = 0; i < 16; i++) {
       if (i < allItems.length) {
         bingoCard.push({...allItems[i], checked: false});
       } else {
@@ -251,18 +251,16 @@ export function ExistenceBingoList() {
     const ensureWinnableLine = () => {
       // Possible winning lines (rows, columns, diagonals)
       const lines = [
-        [0, 1, 2, 3, 4],       // row 1
-        [5, 6, 7, 8, 9],       // row 2
-        [10, 11, 12, 13, 14],  // row 3
-        [15, 16, 17, 18, 19],  // row 4
-        [20, 21, 22, 23, 24],  // row 5
-        [0, 5, 10, 15, 20],    // col 1
-        [1, 6, 11, 16, 21],    // col 2
-        [2, 7, 12, 17, 22],    // col 3
-        [3, 8, 13, 18, 23],    // col 4
-        [4, 9, 14, 19, 24],    // col 5
-        [0, 6, 12, 18, 24],    // diagonal 1
-        [4, 8, 12, 16, 20]     // diagonal 2
+        [0, 1, 2, 3],       // row 1
+        [4, 5, 6, 7],       // row 2
+        [8, 9, 10, 11],     // row 3
+        [12, 13, 14, 15],   // row 4
+        [0, 4, 8, 12],      // col 1
+        [1, 5, 9, 13],      // col 2
+        [2, 6, 10, 14],     // col 3
+        [3, 7, 11, 15],     // col 4
+        [0, 5, 10, 15],     // diagonal 1
+        [3, 6, 9, 12]       // diagonal 2
       ];
       
       // Choose a random line
@@ -301,22 +299,22 @@ export function ExistenceBingoList() {
     if (bingoItems.length === 0) return false;
     
     // Rows
-    for (let i = 0; i < 5; i++) {
-      if (bingoItems.slice(i*5, i*5+5).every(item => item.checked)) {
+    for (let i = 0; i < 4; i++) {
+      if (bingoItems.slice(i*4, i*4+4).every(item => item.checked)) {
         return true;
       }
     }
     
     // Columns
-    for (let i = 0; i < 5; i++) {
-      if ([0,1,2,3,4].every(j => bingoItems[i + j*5].checked)) {
+    for (let i = 0; i < 4; i++) {
+      if ([0,1,2,3].every(j => bingoItems[i + j*4].checked)) {
         return true;
       }
     }
     
     // Diagonals
-    if ([0,6,12,18,24].every(i => bingoItems[i].checked)) return true;
-    if ([4,8,12,16,20].every(i => bingoItems[i].checked)) return true;
+    if ([0,5,10,15].every(i => bingoItems[i].checked)) return true;
+    if ([3,6,9,12].every(i => bingoItems[i].checked)) return true;
     
     return false;
   };
@@ -472,7 +470,7 @@ export function ExistenceBingoList() {
             </div>
           )}
           
-          <div className="grid grid-cols-5 gap-2 mb-6">
+          <div className="grid grid-cols-4 gap-2 mb-6">
             {bingoItems.map((item, index) => (
               <Card 
                 key={index} 
